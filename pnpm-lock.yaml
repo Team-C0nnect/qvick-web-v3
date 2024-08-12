@@ -53,6 +53,9 @@ importers:
       styled-reset:
         specifier: ^4.5.2
         version: 4.5.2(styled-components@6.1.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      sweetalert2:
+        specifier: ^11.12.4
+        version: 11.12.4
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -5066,6 +5069,9 @@ packages:
     resolution: {integrity: sha512-+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  sweetalert2@11.12.4:
+    resolution: {integrity: sha512-ZSpyaLbAmn4b7xjnV9x9BFD1UOrCAhIzm1D8dZ443kGxtVKqbTIA5SgXs4xeEtmFfEXUyC3RBgpSlu1AXmCiHA==}
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
@@ -11650,6 +11656,8 @@ snapshots:
       csso: 4.2.0
       picocolors: 1.0.1
       stable: 0.1.8
+
+  sweetalert2@11.12.4: {}
 
   symbol-tree@3.2.4: {}
 
