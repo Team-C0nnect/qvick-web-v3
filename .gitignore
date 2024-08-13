@@ -6,6 +6,10 @@
 
 /build
 
+*.config
+/config
+config
+
 .DS_Store
 .env.local
 .env.development.local
