@@ -15,6 +15,19 @@ class ErrorHandler {
                 return "로그인에 실패하셨습니다.";
         }
     }
+
+    signupError = (status: number) => {
+        switch (status) {
+            case 400:
+                return  "요청되지 않습니다.";
+            case 404:
+                return "이미 존재하는 멤버입니다.";
+            case 500:
+                return "서버 오류가 발생하였습니다.";
+            default:
+                return "회원가입에 실패하였습니다.";
+        }
+    };
 }
 
 export default new ErrorHandler();
