@@ -21,12 +21,12 @@ class AuthRepositoryImpl implements AuthRepository {
     }
 
     public login(loginData: LoginParams): Promise<LoginResponse> {
-        const url = `${config.qvick_Server}/auth/Sign-in`;
+        const url = `${config.qvick_Server}/auth/sign-in`;
         return this.postRequest<LoginResponse>(url, loginData, 'login');
     }
 
     public signUp(signUpData: SignUpParams): Promise<void> {
-        const url = `${config.qvick_Server}/auth/Teacher Sign-up`;
+        const url = `${config.qvick_Server}/auth/teacher/sign-up`;
         return this.postRequest<void>(url, signUpData, 'sign up');
     }
 
