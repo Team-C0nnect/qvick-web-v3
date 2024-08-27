@@ -2,11 +2,9 @@ import AuthRepositoryImpl from "src/repositories/authRepository/authRepositoryIm
 import { useMutation } from "react-query";
 
 export const useLoginMutation = () => {
-    const mutation = useMutation(AuthRepositoryImpl.login);
-    return mutation;
-}
+    return useMutation(AuthRepositoryImpl.login);
+};
 
 export const useSignUpMutation = () => {
-    const mutation = useMutation(AuthRepositoryImpl.signUp);
-    return mutation;
-}
+    return useMutation(AuthRepositoryImpl.signUp);
+};
