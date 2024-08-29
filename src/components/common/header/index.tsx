@@ -1,13 +1,13 @@
 import React from "react";
 import { useGetProfile } from "src/queries/profile/profile.queries";
-import { tokenCheck } from "src/libs/tokenCheck/tokenCheck";
+import { useTokenCheck } from "src/libs/tokenCheck/tokenCheck";
 import logoImg from "src/assets/img/logo.svg";
 import profileImg from "src/assets/img/profileImg.svg";
 import * as S from "src/components/common/header/style";
 
 const Header = () => {
     const { data } = useGetProfile();
-    const { getTokenCheck } = tokenCheck();
+    const { getTokenCheck } = useTokenCheck();
 
     return (
         <S.headWrap>

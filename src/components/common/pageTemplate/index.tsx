@@ -5,7 +5,7 @@ import useExceptionHandling from "src/constants/exceptionHandling/constants";
 import Layout from "src/components/common/layout";
 import Header from "src/components/common/header";
 
-const pageTemplate = ({ children }: ProvidersProps) => {
+const PageTemplate = ({ children }: ProvidersProps) => {
     const exceptionHandling = useExceptionHandling();
     return (
         <S.layoutWrap>
@@ -15,4 +15,4 @@ const pageTemplate = ({ children }: ProvidersProps) => {
     );
 };
 
-export default pageTemplate;
+export default PageTemplate;

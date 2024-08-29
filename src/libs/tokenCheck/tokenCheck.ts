@@ -1,7 +1,7 @@
 import { useAtom, useSetAtom } from 'jotai';
 import { tokenValidAtom } from 'src/store/token/token.atom';
 
-export const tokenCheck = () => {
+export const useTokenCheck = () => {
     const setTokenValid = useSetAtom(tokenValidAtom);
     const [tokenValid] = useAtom(tokenValidAtom);
 
