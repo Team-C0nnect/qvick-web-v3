@@ -2,3 +2,23 @@
     src: url("../assets/font/Pretendard-Regular.otf");
     font-family: "Pretendard-Regular";
 }
+
+@font-face {
+    src: url("../assets/font/Pretendard-Medium.otf");
+    font-family: "Pretendard-Medium";
+}
+
+@font-face {
+    src: url("../assets/font/Pretendard-SemiBold.otf");
+    font-family: "Pretendard-SemiBold";
+}
+
+@font-face {
+    src: url("../assets/font/Pretendard-Bold.otf");
+    font-family: "Pretendard-Bold";
+}
+
+@font-face {
+    src: url("../assets/font/Pretendard-ExtraBold.otf");
+    font-family: "Pretendard-ExtraBold";
+}
