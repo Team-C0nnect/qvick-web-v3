@@ -88,3 +88,26 @@ export const Button = styled.button`
         background-color: #0278d4;
     }
 `;
+
+export const FooterText = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 500px;
+`;
+
+export const NoMemberText = styled.span`
+    color: #A1A1A1;
+    font-size: 14px;
+`;
+
+export const SignUpLink = styled.span`
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    color: #0389FF;
+    &:hover {
+        text-decoration: underline;
+    }
+`;
