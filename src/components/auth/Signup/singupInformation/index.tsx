@@ -3,8 +3,11 @@ import SideBarImg from "src/assets/img/normalSide.svg";
 import userImg from "src/assets/img/userImg.svg";
 import lockImg from "src/assets/img/Locker.svg";
 import * as S from "src/components/auth/Signup/singupInformation/style";
+import { useNavigate } from "react-router-dom";
 
 const SignUpInformation = () => {
+    const navigate = useNavigate();
+
     return (
         <S.Container>
             <S.SideImage src={SideBarImg} alt="사이드 이미지" />
@@ -27,6 +30,10 @@ const SignUpInformation = () => {
                         <S.Input type="password" placeholder="비밀번호를 입력해주세요" />
                     </S.InputGroup>
                     <S.Button>회원가입</S.Button>
+                    <S.FooterText>
+                        <S.NoMemberText>가입한 계정이 있으신가요?</S.NoMemberText>
+                        <S.SignUpLink onClick={() => navigate("/sign")}>로그인으로 돌아가기</S.SignUpLink>
+                    </S.FooterText>
                 </S.InformationWrap>
             </S.SignUpWrap>
         </S.Container>
