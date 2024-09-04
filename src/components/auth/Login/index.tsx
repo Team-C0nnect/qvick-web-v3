@@ -4,9 +4,12 @@ import * as S from "src/components/auth/Login/style";
 import SideBarImg from "src/assets/img/normalSide.svg";
 import userImg from "src/assets/img/userImg.svg";
 import lockImg from "src/assets/img/Locker.svg";
-import {FooterText, SignUpLink} from "src/components/auth/Login/style";
 
-const LoginComponent = () => {
+interface LoginComponentProps {
+    setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginComponent: React.FC<LoginComponentProps> = ({ setIsLogin }) => {
     const navigate = useNavigate();
 
     return (
@@ -25,10 +28,10 @@ const LoginComponent = () => {
                         <S.InputIcon src={lockImg} alt="비밀번호 아이콘" />
                         <S.Input type="password" placeholder="비밀번호를 입력해주세요" />
                     </S.InputGroup>
-                    <S.Button>로그인</S.Button>
+                    <S.Button onClick={() => navigate("/home")}>로그인</S.Button>
                     <S.FooterText>
                         <S.NoMemberText>가입한 계정이 없으신가요?</S.NoMemberText>
-                        <S.SignUpLink onClick={() => navigate("/sign")}>회원가입</S.SignUpLink>
+                        <S.SignUpLink onClick={() => setIsLogin(false)}>회원가입</S.SignUpLink>
                     </S.FooterText>
                 </S.InformationWrap>
             </S.SignUpWrap>
