@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Sign from "src/pages/auth/page";
 import Notfound from "src/components/common/notfound";
 import MainPage from "src/pages/Main/page";
-import Announcement from "src/components/home/Announcement";
-import CkMember from "src/components/home/CkMember";
-import NckMember from "src/components/home/NckMember";
+import Announcement from "src/pages/Announcement/page";
+import CkMember from "src/pages/CkMember/page";
+import NckMember from "src/pages/NckMember/page";
 
 const Routers = () => {
     return (

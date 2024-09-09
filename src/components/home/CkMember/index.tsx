@@ -1,6 +1,6 @@
 import React from "react";
 
-const CkmMember = () => {
+const CkMember = () => {
     return (
         <div>
             출석자 명단 리스트 입니다.
@@ -8,4 +8,4 @@ const CkmMember = () => {
     )
 }
 
-export default CkmMember;
+export default CkMember;
