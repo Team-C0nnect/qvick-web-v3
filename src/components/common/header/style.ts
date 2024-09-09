@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const headWrap = styled.div`
     width: 100%;
@@ -25,6 +26,17 @@ export const navBar = styled.nav`
     color: white;
     font-size: 18px;
     font-weight: bold;
+`;
+
+export const NavLink = styled(Link)`
+    margin: 0 100px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 export const nameContainer = styled.div`

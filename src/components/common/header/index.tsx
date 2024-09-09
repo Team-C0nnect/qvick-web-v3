@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // React Router의 Link 컴포넌트
 import { useGetProfile } from "src/queries/profile/profile.queries";
 import { useTokenCheck } from "src/libs/tokenCheck/tokenCheck";
 import logoImg from "src/assets/img/logo.svg";
@@ -13,7 +14,12 @@ const Header = () => {
         <S.headWrap>
             <S.logoImg src={logoImg} alt="logo" />
 
-            <S.navBar>네비게이션 바</S.navBar>
+            <S.navBar>
+                <S.NavLink to="/">메인 페이지</S.NavLink>
+                <S.NavLink to="/ck-member">출석 인원</S.NavLink>
+                <S.NavLink to="/nck-member">미출석 인원</S.NavLink>
+                <S.NavLink to="/announcement">공지사항</S.NavLink>
+            </S.navBar>
 
             {getTokenCheck() ? (
                 <S.nameContainer>
