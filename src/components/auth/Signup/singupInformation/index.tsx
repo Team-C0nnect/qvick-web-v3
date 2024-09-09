@@ -13,11 +13,11 @@ interface Props {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => void;
     submitSignupData: () => void;
-    keydownButton: (e: React.KeyboardEvent) => void;
+    keydownButton?: (e: React.KeyboardEvent) => void;
 }
 
 const SignUpInformation = ({
-    // setSection,
+    setSection,
     signupData,
     handleSignupData,
     keydownButton,
@@ -61,6 +61,7 @@ const SignUpInformation = ({
                             name="password"
                             value={signupData.password}
                             type="password"
+                            onChange={handleSignupData}
                             placeholder="비밀번호를 입력해주세요"
                             onKeyDown={keydownButton}
                         />
@@ -68,7 +69,7 @@ const SignUpInformation = ({
                     <S.Button onClick={submitSignupData}>회원가입</S.Button>
                     <S.FooterText>
                         <S.NoMemberText>가입한 계정이 있으신가요?</S.NoMemberText>
-                        <S.SignUpLink onClick={() => navigate("/sign")}>로그인으로 돌아가기</S.SignUpLink>
+                        <S.SignUpLink onClick={() => navigate("/login")}>로그인으로 돌아가기</S.SignUpLink>
                     </S.FooterText>
                 </S.InformationWrap>
             </S.SignUpWrap>

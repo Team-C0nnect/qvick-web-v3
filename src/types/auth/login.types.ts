@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface LoginResponse extends Response {
+    status: number;
+    message: string;
     data: {
         accessToken: string;
         refreshToken: string;

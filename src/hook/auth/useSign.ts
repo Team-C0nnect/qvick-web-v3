@@ -28,25 +28,27 @@ export const useSign = () => {
     );
 
     const submitSignupData = useCallback(async () => {
-        const validationError = validateSignupData(signupData);
-        if (validationError) {
-            showToast("error", validationError);
-            return;
+        if (section === "first") {
+            setSection("second");
+        } else {
+            const validationError = validateSignupData(signupData);
+            if (validationError) {
+                showToast("error", validationError);
+                return;
+            }
+
+            SignUpMutation.mutate(signupData, {
+                onSuccess: () => {
+                    showToast("success", "회원가입 성공");
+                    window.location.reload();
+                },
+                onError: (error) => {
+                    const errorCode = error as AxiosError;
+                    showToast("error", errorHandler.signupError(errorCode.response?.status!));
+                },
+            });
         }
-
-        setSection("second");
-
-        SignUpMutation.mutate(signupData, {
-            onSuccess: () => {
-                showToast("success", "회원가입 성공");
-                window.location.reload();
-            },
-            onError: (error) => {
-                const errorCode = error as AxiosError;
-                showToast("error", errorHandler.signupError(errorCode.response?.status!));
-            },
-        });
-    }, [signupData, SignUpMutation]);
+    }, [section, signupData, SignUpMutation]);
 
     return {
         section,

@@ -9,8 +9,7 @@ import config from "src/config/config.json";
 import axios, { AxiosResponse } from "axios";
 
 class AuthRepositoryImpl implements AuthRepository {
-
-    private async postRequest<T>(url: string, payload: any, actionName: string): Promise<T> {
+    private postRequest = async <T>(url: string, payload: any, actionName: string): Promise<T> => {
         try {
             const { data }: AxiosResponse<T> = await axios.post(url, payload);
             return data;
@@ -18,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
             console.error(`Error occurred during ${actionName}:`, error);
             throw new Error(`${actionName} failed`);
         }
-    }
+    };
 
     public login(loginData: LoginParams): Promise<LoginResponse> {
         const url = `${config.qvick_Server}/auth/sign-in`;
@@ -26,7 +25,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
 
     public signUp(signUpData: SignUpParams): Promise<void> {
-        const url = `${config.qvick_Server}/auth/teacher/sign-up`;
+        const url = `${config.qvick_Server}/auth/sign-up/teacher`;
         return this.postRequest<void>(url, signUpData, 'sign up');
     }
 
@@ -35,5 +34,6 @@ class AuthRepositoryImpl implements AuthRepository {
         return this.postRequest<NewAccessTokenResponse>(url, refreshToken, 'token refresh');
     }
 }
+
 
 export default new AuthRepositoryImpl();
