@@ -6,32 +6,40 @@ import {
     SignUpParams,
 } from "./authRepository";
 import config from "src/config/config.json";
-import axios, { AxiosResponse } from "axios";
+import axios  from "axios";
 
 class AuthRepositoryImpl implements AuthRepository {
-    private postRequest = async <T>(url: string, payload: any, actionName: string): Promise<T> => {
+    public async login(loginData: LoginParams): Promise<LoginResponse> {
         try {
-            const { data }: AxiosResponse<T> = await axios.post(url, payload);
+            const { data } = await axios.post(`${config.qvick_Server}/auth/sign-in`, loginData);
             return data;
         } catch (error) {
-            console.error(`Error occurred during ${actionName}:`, error);
-            throw new Error(`${actionName} failed`);
+            console.error(error);
+            throw new Error('로그인 실패');
         }
-    };
-
-    public login(loginData: LoginParams): Promise<LoginResponse> {
-        const url = `${config.qvick_Server}/auth/sign-in`;
-        return this.postRequest<LoginResponse>(url, loginData, 'login');
     }
 
-    public signUp(signUpData: SignUpParams): Promise<void> {
-        const url = `${config.qvick_Server}/auth/sign-up/teacher`;
-        return this.postRequest<void>(url, signUpData, 'sign up');
+    public async signUp(signUpData: SignUpParams): Promise<void> {
+        try {
+            const { data }= await axios.post(`${config.qvick_Server}/auth/sign-up/teacher`)
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw new Error('회원가입 실패');
+        }
     }
 
-    public refreshAccessToken(refreshToken: { refreshToken: string }): Promise<NewAccessTokenResponse> {
-        const url = `${config.qvick_Server}/auth/refresh`;
-        return this.postRequest<NewAccessTokenResponse>(url, refreshToken, 'token refresh');
+    public async refreshAccessToken(refreshToken: { refreshToken: string }): Promise<NewAccessTokenResponse> {
+        try {
+            const { data }= await axios.post<NewAccessTokenResponse>(
+                `${config.qvick_Server}/auth/refresh`,
+                refreshToken
+            );
+            return data;
+        } catch (error) {
+            console.error('refresh 에러', error);
+            throw new Error('refresh access token')
+        }
     }
 }
 
