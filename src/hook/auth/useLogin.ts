@@ -54,7 +54,7 @@ export const useLogin = () => {
         LoginMutation.mutate(LoginData, {
             onSuccess: (data) => {
                 setTokenValid(true);
-                navigate("/");
+                navigate("/main");
                 showToast("success", "로그인 성공");
                 token.setToken(ACCESS_TOKEN_KEY, data.data.accessToken);
                 token.setToken(REFRESH_TOKEN_KEY, data.data.refreshToken);
