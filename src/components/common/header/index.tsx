@@ -11,14 +11,15 @@ const Header = () => {
 
     return (
         <S.headWrap>
+            <S.logoImg src={logoImg} alt="logo" />
+
+            <S.navBar>네비게이션 바</S.navBar>
+
             {getTokenCheck() ? (
-                <>
-                    <S.logoImg src={logoImg} alt="logo" />
-                    <S.nameContainer>
-                        <S.profileImg src={profileImg} alt="profileImg" />
-                        <S.profileName className="name">{data?.name}</S.profileName>
-                    </S.nameContainer>
-                </>
+                <S.nameContainer>
+                    <S.profileImg src={profileImg} alt="profileImg" />
+                    <S.profileName>{data?.data.name}</S.profileName>
+                </S.nameContainer>
             ) : null}
         </S.headWrap>
     );
