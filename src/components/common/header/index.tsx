@@ -13,7 +13,12 @@ const Header = () => {
         <S.headWrap>
             <S.logoImg src={logoImg} alt="logo" />
 
-            <S.navBar>네비게이션 바</S.navBar>
+            <S.navBar>
+                <S.NavLink to="/main">메인 페이지</S.NavLink>
+                <S.NavLink to="/ckmember">출석 인원</S.NavLink>
+                <S.NavLink to="/nckmember">미출석 인원</S.NavLink>
+                <S.NavLink to="/announcement">공지사항</S.NavLink>
+            </S.navBar>
 
             {getTokenCheck() ? (
                 <S.nameContainer>
