@@ -17,7 +17,7 @@ const Routers = () => {
             <Route path="/ckmember" element={<CkMember />} />
             <Route path="/nckmember" element={<NckMember />} />
         </Routes>
-    )
-}
+    );
+};
 
 export default Routers;

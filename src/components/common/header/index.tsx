@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom"; // React Router의 Link 컴포넌트
 import { useGetProfile } from "src/queries/profile/profile.queries";
 import { useTokenCheck } from "src/libs/tokenCheck/tokenCheck";
 import logoImg from "src/assets/img/logo.svg";

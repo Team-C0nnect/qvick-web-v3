@@ -8,12 +8,13 @@ export const headWrap = styled.div`
     justify-content: space-between;
     padding: 0 20px;
     background-color: #0389FF;
-    position: relative;
-    height: 80px; 
+    position: fixed;  
+    top: 0;  
+    height: 80px;
 `;
 
 export const logoImg = styled.img`
-    width: 90px; 
+    width: 90px;
     height: 90px;
     flex-shrink: 0;
 `;
@@ -50,11 +51,10 @@ export const nameContainer = styled.div`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 150px;
     height: 25px;
-;
 `;
 
 export const profileImg = styled.img`
-    width: 30px; 
+    width: 30px;
     height: 30px;
     border-radius: 50%;
 `;
