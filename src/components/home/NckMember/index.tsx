@@ -1,10 +1,11 @@
 import React from "react";
+import * as S from "src/components/home/NckMember/style";
 
 const NckMember = () => {
     return (
-        <div>
+        <S.memberContainer>
             미출석자 페이지입니다.
-        </div>
+        </S.memberContainer>
     )
 }
 

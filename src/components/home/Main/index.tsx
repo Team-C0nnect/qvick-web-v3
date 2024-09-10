@@ -1,10 +1,11 @@
 import React from "react";
+import * as S from "src/components/home/Main/style";
 
 const Main = () => {
     return (
-        <div>
+        <S.mainContainer>
             구성원페이지 입니다.
-        </div>
+        </S.mainContainer>
     )
 }
 
