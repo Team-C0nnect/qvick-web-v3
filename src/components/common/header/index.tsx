@@ -15,9 +15,9 @@ const Header = () => {
             <S.logoImg src={logoImg} alt="logo" />
 
             <S.navBar>
-                <S.NavLink to="/">메인 페이지</S.NavLink>
-                <S.NavLink to="/ck-member">출석 인원</S.NavLink>
-                <S.NavLink to="/nck-member">미출석 인원</S.NavLink>
+                <S.NavLink to="/main">메인 페이지</S.NavLink>
+                <S.NavLink to="/ckmember">출석 인원</S.NavLink>
+                <S.NavLink to="/nckmember">미출석 인원</S.NavLink>
                 <S.NavLink to="/announcement">공지사항</S.NavLink>
             </S.navBar>
 
