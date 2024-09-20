@@ -1,10 +1,11 @@
 import React from "react";
+import * as S from "src/components/home/Announcement/style";
 
 const Announcement = () => {
     return (
-        <div>
+        <S.AnnouncementContainer>
             공지사항페이지입니다.
-        </div>
+        </S.AnnouncementContainer>
     )
 }
 
