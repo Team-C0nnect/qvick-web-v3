@@ -13,7 +13,7 @@ const CkMember = () => {
         return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
     }
 
-    const members = data; // data.data 대신 data로 접근
+    const members = data;
 
     if (!members || !Array.isArray(members)) {
         return <S.memberContainer>데이터가 없습니다.</S.memberContainer>;
