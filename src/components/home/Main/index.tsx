@@ -13,7 +13,7 @@ const Main = () => {
         return <S.mainContainer>에러가 발생했습니다.</S.mainContainer>;
     }
 
-    const members = data?.data;
+    const members = data; // data.data 대신 data로 접근
 
     if (!members || !Array.isArray(members)) {
         return <S.mainContainer>데이터가 없습니다.</S.mainContainer>;

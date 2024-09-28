@@ -3,17 +3,17 @@ import * as S from "src/components/home/CkMember/style";
 import { useGetCheckedMembersTrue } from "src/queries/member/member.queries";
 
 const CkMember = () => {
-    const {data, isLoading, isError} =  useGetCheckedMembersTrue()
+    const { data, isLoading, isError } = useGetCheckedMembersTrue();
 
-    if(isLoading) {
-        return <S.memberContainer>로딩중...</S.memberContainer>
+    if (isLoading) {
+        return <S.memberContainer>로딩중...</S.memberContainer>;
     }
 
-    if(isError) {
-        return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>
+    if (isError) {
+        return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
     }
 
-    const members = data?.data;
+    const members = data; // data.data 대신 data로 접근
 
     if (!members || !Array.isArray(members)) {
         return <S.memberContainer>데이터가 없습니다.</S.memberContainer>;
@@ -54,7 +54,7 @@ const CkMember = () => {
                 </S.table>
             </S.tableWrapper>
         </S.memberContainer>
-    )
+    );
 }
 
 export default CkMember;
