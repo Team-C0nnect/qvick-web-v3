@@ -9,7 +9,7 @@ export const usePatchProfileMutation = () => {
 };
 
 export const useGetProfile = () => {
-    return useQuery<profileType, AxiosError, profileType, string[]>({
+    return useQuery<profileType, AxiosError>({
         queryKey: [qvickQueryKey.profile.getProfile],
         queryFn: profileRepositoryImpl.getProfileInfo,
         staleTime: 30 * 1000,

@@ -20,10 +20,10 @@ const Header = () => {
                 <S.NavLink to="/announcement">공지사항</S.NavLink>
             </S.navBar>
 
-            {getTokenCheck() ? (
+            {getTokenCheck() && data ? (
                 <S.nameContainer>
                     <S.profileImg src={profileImg} alt="profileImg" />
-                    <S.profileName>{data?.data.name}</S.profileName>
+                    <S.profileName>{data.data.name}</S.profileName>
                 </S.nameContainer>
             ) : null}
         </S.headWrap>

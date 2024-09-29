@@ -4,13 +4,13 @@ import QvickAxios from "src/libs/axios/customAxios";
 
 class ProfileRepositoryImpl implements profileRepository {
     public async getProfileInfo(): Promise<profileType> {
-        const { data } = await QvickAxios.get("/user")
+        const { data } = await QvickAxios.get("/user");
         return data;
     }
 
-    public async patchProfile(pramsData:patchProfile):Promise<void>{
-        await QvickAxios.patch("/profile",pramsData)
+    public async patchProfile(pramsData: patchProfile): Promise<void> {
+        await QvickAxios.patch("/profile", pramsData);
     }
 }
 
-export default new ProfileRepositoryImpl;
+export default new ProfileRepositoryImpl();
