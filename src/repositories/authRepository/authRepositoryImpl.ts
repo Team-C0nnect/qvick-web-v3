@@ -21,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
     public async signUp(signUpData: SignUpParams): Promise<void> {
         try {
-            const { data }= await axios.post(`${config.qvick_Server}/auth/sign-up/teacher`)
+            const { data }= await axios.post(`${config.qvick_Server}/sign-up/teacher`)
             return data;
         } catch (error) {
             console.error(error);
