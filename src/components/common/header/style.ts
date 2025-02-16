@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 
 export const headWrap = styled.div`
     width: 100%;
+    height: 8%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     background-color: #0389FF;
     position: fixed;  
-    top: 0;  
-    height: 80px;
+    top: 0;
+    flex-direction: row;
 `;
 
 export const logoImg = styled.img`
