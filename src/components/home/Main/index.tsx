@@ -150,7 +150,7 @@ const Main = () => {
                                 {member.checked ? '출석' : '미출석'}
                             </S.td>
                             <S.td>{member.phoneNum}</S.td>
-                            <S.td>{member.room}</S.td>
+                            <S.td>{member.room}호</S.td>
                         </S.tr>
                     ))}
                     </tbody>
