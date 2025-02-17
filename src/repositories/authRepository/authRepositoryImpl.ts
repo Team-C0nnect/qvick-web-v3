@@ -1,28 +1,28 @@
 import { LoginResponse } from "src/types/auth/login.types";
+import axiosInstance from 'src/until/api/axiosInstance';
 import {
     AuthRepository,
     NewAccessTokenResponse,
     LoginParams,
     SignUpParams,
 } from "./authRepository";
-import axios  from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_QVICK_SERVER;
+const SIGN_IN_ENDPOINT = "/auth/sign-in";
 
 class AuthRepositoryImpl implements AuthRepository {
-    public async login(loginData: LoginParams): Promise<LoginResponse> {
+    public login = async (loginData: LoginParams): Promise<LoginResponse> => {
         try {
-            const { data } = await axios.post(`${API_BASE_URL}/auth/sign-in`, loginData);
+            const { data } = await axiosInstance.post(SIGN_IN_ENDPOINT, loginData);
             return data;
         } catch (error) {
             console.error(error);
-            throw new Error('로그인 실패');
+            throw error; // 에러 핸들링을 위해 원본 에러를 전달
         }
     }
 
-    public async signUp(signUpData: SignUpParams): Promise<void> {
+    public signUp = async (signUpData: SignUpParams): Promise<void> => {
         try {
-            const { data }= await axios.post(`${API_BASE_URL}/sign-up/teacher`)
+            const { data } = await axiosInstance.post('/sign-up/teacher', signUpData);
             return data;
         } catch (error) {
             console.error(error);
@@ -30,19 +30,18 @@ class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
-    public async refreshAccessToken(refreshToken: { refreshToken: string }): Promise<NewAccessTokenResponse> {
+    public refreshAccessToken = async (refreshToken: { refreshToken: string }): Promise<NewAccessTokenResponse> => {
         try {
-            const { data }= await axios.post<NewAccessTokenResponse>(
-                `${API_BASE_URL}/auth/refresh`,
+            const { data } = await axiosInstance.post<NewAccessTokenResponse>(
+                '/auth/refresh',
                 refreshToken
             );
             return data;
         } catch (error) {
             console.error('refresh 에러', error);
-            throw new Error('refresh access token')
+            throw new Error('refresh access token 실패');
         }
     }
 }
-
 
 export default new AuthRepositoryImpl();

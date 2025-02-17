@@ -22,9 +22,9 @@ const LoginComponent = ({ setIsLogin }: Props) => {
                         <S.InputIcon src={userImg} alt="유저 아이콘" />
                         <S.Input
                             name="email"
-                            value={auth.LoginData.email}
+                            value={auth.loginData.email}
                             type="text"
-                            onChange={auth.handleSignUpData}
+                            onChange={auth.handleLoginData}
                             placeholder="이메일을 입력해주세요"
                             onKeyDown={auth.handleKeydown}
                         />
@@ -34,9 +34,9 @@ const LoginComponent = ({ setIsLogin }: Props) => {
                         <S.InputIcon src={lockImg} alt="비밀번호 아이콘" />
                         <S.Input
                             name="password"
-                            value={auth.LoginData.password}
+                            value={auth.loginData.password}
                             type="password"
-                            onChange={auth.handleSignUpData}
+                            onChange={auth.handleLoginData}
                             placeholder="비밀번호를 입력해주세요"
                             onKeyDown={auth.handleKeydown}
                         />
