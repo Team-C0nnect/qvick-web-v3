@@ -5,13 +5,14 @@ import {
     LoginParams,
     SignUpParams,
 } from "./authRepository";
-import config from "src/config/config.json";
 import axios  from "axios";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_QVICK_SERVER;
 
 class AuthRepositoryImpl implements AuthRepository {
     public async login(loginData: LoginParams): Promise<LoginResponse> {
         try {
-            const { data } = await axios.post(`${config.qvick_Server}/auth/sign-in`, loginData);
+            const { data } = await axios.post(`${API_BASE_URL}/auth/sign-in`, loginData);
             return data;
         } catch (error) {
             console.error(error);
@@ -21,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
     public async signUp(signUpData: SignUpParams): Promise<void> {
         try {
-            const { data }= await axios.post(`${config.qvick_Server}/sign-up/teacher`)
+            const { data }= await axios.post(`${API_BASE_URL}/sign-up/teacher`)
             return data;
         } catch (error) {
             console.error(error);
@@ -32,7 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
     public async refreshAccessToken(refreshToken: { refreshToken: string }): Promise<NewAccessTokenResponse> {
         try {
             const { data }= await axios.post<NewAccessTokenResponse>(
-                `${config.qvick_Server}/auth/refresh`,
+                `${API_BASE_URL}/auth/refresh`,
                 refreshToken
             );
             return data;
