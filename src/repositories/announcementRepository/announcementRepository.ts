@@ -5,5 +5,5 @@ export interface AnnouncementRepository {
     getDetailAnnouncement(): Promise<AnnouncementTypes[]>;
     patchAnnouncement(): Promise<AnnouncementTypes[]>;
     postAnnouncement(): Promise<AnnouncementTypes[]>;
-    deleteAnnouncement(): Promise<AnnouncementTypes[]>;
+    deleteAnnouncement(id: number): Promise<void>;
 }

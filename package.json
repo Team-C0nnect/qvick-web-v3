@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/react-query": "^5.66.5",
     "@types/js-cookie": "^3.0.6"
   }
 }

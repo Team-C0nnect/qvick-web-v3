@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { AnnouncementTypes } from "src/types/Announcement/announcement.types";
 import AnnouncementRepositoryImpl from "src/repositories/announcementRepository/announcementRepositoryImpl";
@@ -9,18 +9,8 @@ export const useGetAnnouncement = () => {
         queryKey: [qvickQueryKey.announcement.getAnnouncement],
         queryFn: AnnouncementRepositoryImpl.getAnnouncement,
         staleTime: 30 * 1000,
-        cacheTime: 60 * 1000,
     });
-}
-
-export const useGetDetailAnnouncement = () => {
-    return useQuery<AnnouncementTypes[], AxiosError>({
-       queryKey: [qvickQueryKey.announcement.getDetailAnnouncement],
-       queryFn: AnnouncementRepositoryImpl.getDetailAnnouncement,
-       staleTime: 30 * 1000,
-       cacheTime: 60 * 1000,
-    });
-}
+};
 
 export const usePatchAnnouncement = () => {
     return useQuery<AnnouncementTypes[], AxiosError>({
@@ -37,8 +27,7 @@ export const usePostAnnouncement = () => {
 }
 
 export const useDeleteAnnouncement = () => {
-    return useQuery<AnnouncementTypes[], AxiosError>({
-        queryKey: [qvickQueryKey.announcement.deleteAnnouncement],
-        queryFn: AnnouncementRepositoryImpl.deleteAnnouncement,
-    })
-}
+    return useMutation<void, AxiosError, number>({
+        mutationFn: (id: number) => AnnouncementRepositoryImpl.deleteAnnouncement(id),
+    });
+};
