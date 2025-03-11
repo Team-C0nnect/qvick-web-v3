@@ -4,7 +4,7 @@ import RequestHandler from "src/libs/axios/requestHandler";
 import ResponseHandler from "src/libs/axios/responseHandler"
 import { ACCESS_TOKEN_KEY, REQUEST_TOKEN_KEY } from "src/constants/token/token.constants";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_QVICK_SERVER;
+const API_BASE_URL = process.env.REACT_APP_QVICK_SERVER;
 
 const axiosRequestConfig: AxiosRequestConfig = {
     baseURL: API_BASE_URL,

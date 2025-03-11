@@ -5,12 +5,14 @@ import memberRepositoryImpl from "src/repositories/memberRepository/memberReposi
 import { qvickQueryKey } from "src/queries/queriesKey";
 
 export const useGetAllMembers = () => {
-    return useQuery<memberType[], AxiosError>({
-        queryKey: [qvickQueryKey.member.getAll],
-        queryFn: memberRepositoryImpl.getAllMembers,
-        staleTime: 30 * 1000,
-        cacheTime: 60 * 1000,
-    });
+    return useQuery<memberType[], AxiosError>(
+        [qvickQueryKey.member.getAll],
+        async () => await memberRepositoryImpl.getAllMembers(),
+        {
+            staleTime: 30 * 1000,
+            cacheTime: 60 * 1000,
+        }
+    );
 };
 
 export const useGetCheckedMembersTrue = () => {
