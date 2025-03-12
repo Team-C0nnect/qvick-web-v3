@@ -39,18 +39,18 @@ export const AnimatedText = styled.div`
     }
 `;
 
-export const LoginButton = styled.button`
-    margin-top: 20px;
-    padding: 10px 20px;
+export const LoginText = styled.span`
+    display: inline-block;
     font-size: 1.2rem;
-    background-color: #007bff;
+    font-weight: bold;
     color: white;
-    border: none;
-    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    
+    margin-top: 50px;
+    transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
+
     &:hover {
-        background-color: #0056b3;
+        transform: scale(1.2);
+        font-size: 2rem;
+        color: #0389FF;
     }
 `;
