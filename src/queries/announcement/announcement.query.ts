@@ -28,6 +28,6 @@ export const usePostAnnouncement = () => {
 
 export const useDeleteAnnouncement = () => {
     return useMutation<void, AxiosError, number>({
-        mutationFn: (id: number) => AnnouncementRepositoryImpl.deleteAnnouncement(id),
+        mutationFn: (idx: number) => AnnouncementRepositoryImpl.deleteAnnouncement(idx),
     });
 };

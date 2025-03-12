@@ -23,8 +23,8 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         return data.data;
     }
 
-    public async deleteAnnouncement(id: number): Promise<void> {
-        await QvickAxios.delete(`/notice/${id}`);
+    public async deleteAnnouncement(idx: number): Promise<void> {
+        await QvickAxios.delete(`/notice`, { params: { idx } });
     }
 }
 
