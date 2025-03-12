@@ -9,6 +9,8 @@ export const Container = styled.div`
 export const SideImage = styled.img`
     flex: 2;
     height: 100%;
+    width: 100%;  
+    max-width: 650px; 
     object-fit: cover;
 `;
 
