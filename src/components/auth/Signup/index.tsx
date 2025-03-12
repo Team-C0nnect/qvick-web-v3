@@ -27,14 +27,7 @@ const Signup = ({ setIsLogin }: Props) => {
 
     return (
         <div>
-            <div>
-                <span>큐빅이 처음이신가요?</span>
-            </div>
             {currentComponent}
-            <div>
-                <span>계정이 있다면{" "}</span>
-                <strong onClick={() => setIsLogin(true)}>로그인</strong>
-            </div>
         </div>
     );
 };
