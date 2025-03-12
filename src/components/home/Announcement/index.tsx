@@ -8,7 +8,7 @@ import { AnnouncementTypes } from "src/types/Announcement/announcement.types";
 import * as S from "src/components/home/Announcement/style";
 
 const Announcement = () => {
-    const { data: announcements, isLoading } = useGetAnnouncement();
+    const { data: announcements, isLoading, refetch } = useGetAnnouncement();
     const { mutate: deleteAnnouncement } = useDeleteAnnouncement();
     const { mutate: postAnnouncement } = usePostAnnouncement();
 
@@ -16,12 +16,17 @@ const Announcement = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
     if (isLoading) return <p>Loading...</p>;
 
     const handleDelete = (idx: number) => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
-            deleteAnnouncement(idx);
+            deleteAnnouncement(idx, {
+                onSuccess: () => {
+                    refetch();
+                }
+            });
         }
     };
 
@@ -35,24 +40,40 @@ const Announcement = () => {
                 setIsModalOpen(false);
                 setTitle("");
                 setContent("");
+                refetch();
             }
         });
     };
 
+    const filteredAnnouncements = announcements?.filter((announcement: AnnouncementTypes) =>
+        announcement.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        announcement.content.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <S.AnnouncementBackground>
+            <S.HeaderContainer>
+                <S.Header>
+                    <S.AnnouncementTitle>공지사항</S.AnnouncementTitle>
+                    <S.SearchInput
+                        type="text"
+                        placeholder="찾으시는 점호내용을 입력해주세요."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <S.WriteButton onClick={() => setIsModalOpen(true)}>글쓰기</S.WriteButton>
+                </S.Header>
+            </S.HeaderContainer>
             <S.AnnouncementContainer>
-                <h2>공지사항</h2>
-                <button onClick={() => setIsModalOpen(true)}>글쓰기</button>
                 <S.AnnouncementList>
-                    {announcements?.map((announcement: AnnouncementTypes) => (
+                    {filteredAnnouncements?.map((announcement: AnnouncementTypes) => (
                         <S.AnnouncementItem
                             key={announcement.idx}
                             onClick={() => setSelectedAnnouncement(announcement.idx)}
                             selected={selectedAnnouncement === announcement.idx}
                         >
                             <S.AnnouncementInfo>
-                                <p>{announcement.title}</p>
+                                <h3>{announcement.title}</h3>
                                 <p>{announcement.content}</p>
                                 <p>{new Date(announcement.createdDateTime).toLocaleDateString()}</p>
                             </S.AnnouncementInfo>
@@ -65,11 +86,10 @@ const Announcement = () => {
                 </S.AnnouncementList>
             </S.AnnouncementContainer>
 
-            {/* 글쓰기 모달 */}
             {isModalOpen && (
                 <S.ModalOverlay>
                     <S.ModalContainer>
-                        <h3>공지사항 작성</h3>
+                        <S.ModalTitle>공지사항 작성</S.ModalTitle>
                         <S.Input
                             type="text"
                             placeholder="제목을 입력하세요"
