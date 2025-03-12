@@ -11,6 +11,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.4",
+    "gsap": "^3.12.7",
     "jotai": "^2.9.3",
     "js-cookie": "^3.0.5",
     "pnpm": "^9.6.0",
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.66.5",
+    "@types/gsap": "^1.20.2",
     "@types/js-cookie": "^3.0.6"
   }
 }

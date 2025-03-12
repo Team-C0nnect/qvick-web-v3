@@ -6,10 +6,12 @@ import MainPage from "src/pages/Main/page";
 import Announcement from "src/pages/Announcement/page";
 import CkMember from "src/pages/CkMember/page";
 import NckMember from "src/pages/NckMember/page";
+import PromotionPage from "src/pages/Promotion/page";
 
 const Routers = () => {
     return (
         <Routes>
+            <Route path="/" element={<PromotionPage />} />
             <Route path="/sign" element={<Sign />} />
             <Route path="*" element={<Notfound />} />
             <Route path="/main" element={<MainPage />} />
