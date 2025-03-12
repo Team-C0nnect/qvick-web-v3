@@ -3,6 +3,7 @@ import { useGetProfile } from "src/queries/profile/profile.queries";
 import { useTokenCheck } from "src/libs/tokenCheck/tokenCheck";
 import logoImg from "src/assets/img/logo.svg";
 import profileImg from "src/assets/img/profileImg.svg";
+import dgsw from "src/assets/img/dgsw.svg"
 import * as S from "src/components/common/header/style";
 
 const Header = () => {
@@ -12,6 +13,7 @@ const Header = () => {
     return (
         <S.headWrap>
             <S.logoImg src={logoImg} alt="logo" />
+            <S.logoImg src={dgsw} alt="logo" />
 
             <S.navBar>
                 <S.NavLink to="/main">메인 페이지</S.NavLink>

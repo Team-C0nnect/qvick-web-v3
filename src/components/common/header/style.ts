@@ -18,6 +18,7 @@ export const logoImg = styled.img`
     width: 90px;
     height: 90px;
     flex-shrink: 0;
+    margin-right: 20px;
 `;
 
 export const navBar = styled.nav`
