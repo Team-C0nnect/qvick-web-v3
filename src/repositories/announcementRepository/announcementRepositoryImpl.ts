@@ -18,8 +18,8 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         return data.data;
     }
 
-    public async postAnnouncement(): Promise<AnnouncementTypes[]> {
-        const { data } = await QvickAxios.post('/notice');
+    public async postAnnouncement(newAnnouncement: { title: string; content: string }): Promise<AnnouncementTypes> {
+        const { data } = await QvickAxios.post('/notice', newAnnouncement);
         return data.data;
     }
 

@@ -77,3 +77,66 @@ export const DeleteButton = styled.button`
         background-color: #d32f2f;
     }
 `;
+
+export const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ModalContainer = styled.div`
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const Input = styled.input`
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+`;
+
+export const TextArea = styled.textarea`
+    width: 100%;
+    padding: 8px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+`;
+
+export const SubmitButton = styled.button`
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background: #0056b3;
+    }
+`;
+
+export const CancelButton = styled.button`
+    background: #ccc;
+    color: black;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background: #999;
+    }
+`;

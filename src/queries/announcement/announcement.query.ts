@@ -20,11 +20,11 @@ export const usePatchAnnouncement = () => {
 }
 
 export const usePostAnnouncement = () => {
-    return useQuery<AnnouncementTypes[], AxiosError>({
-        queryKey: [qvickQueryKey.announcement.postAnnouncement],
-        queryFn: AnnouncementRepositoryImpl.postAnnouncement,
-    })
-}
+    return useMutation<AnnouncementTypes, AxiosError, { title: string; content: string }>({
+        mutationFn: (newAnnouncement) => AnnouncementRepositoryImpl.postAnnouncement(newAnnouncement),
+    });
+};
+
 
 export const useDeleteAnnouncement = () => {
     return useMutation<void, AxiosError, number>({
