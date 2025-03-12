@@ -34,7 +34,7 @@ const NckMember = () => {
         }
 
         const absentMembers = data.filter(member =>
-            !member.isChecked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
+            !member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
         );
 
         const sortedAbsentMembers = absentMembers.sort((a, b) => {
@@ -79,7 +79,7 @@ const NckMember = () => {
     }
 
     const absentMembers = members.filter(member =>
-        !member.isChecked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
+        !member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
     );
 
     const sortedAbsentMembers = [...absentMembers].sort((a, b) => {

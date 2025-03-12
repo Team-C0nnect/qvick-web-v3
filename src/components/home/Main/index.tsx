@@ -29,7 +29,7 @@ const Main = () => {
                 case '호실':
                     return a.room.localeCompare(b.room);
                 case '출석 여부':
-                    return a.isChecked === b.isChecked ? 0 : a.isChecked ? -1 : 1;
+                    return a.checked === b.checked ? 0 : a.checked ? -1 : 1;
                 default:
                     return 0;
             }
@@ -39,7 +39,7 @@ const Main = () => {
             "학번": member.stdId,
             "성별": member.gender === 'MALE' ? '남' : '여',
             "이름": member.name,
-            "출석 여부": member.isChecked ? '출석' : '미출석',
+            "출석 여부": member.checked ? '출석' : '미출석',
             "전화번호": member.phoneNum,
             "호실": member.room,
         })));
@@ -58,7 +58,7 @@ const Main = () => {
         return <S.mainContainer>에러가 발생했습니다.</S.mainContainer>;
     }
 
-    const checkedMembersCount = data.filter(member => member.isChecked).length;
+    const checkedMembersCount = data.filter(member => member.checked).length;
     const uncheckedMembersCount = data.length - checkedMembersCount;
 
     const sortedMembers = [...data].sort((a, b) => {
@@ -70,13 +70,13 @@ const Main = () => {
             case '호실':
                 return a.room.localeCompare(b.room);
             case '출석 여부':
-                return a.isChecked === b.isChecked ? 0 : a.isChecked ? -1 : 1;
+                return a.checked === b.checked ? 0 : a.checked ? -1 : 1;
             default:
                 return 0;
         }
     });
 
-    const sortedAbsentMembers = sortedMembers.filter(member => !member.isChecked);
+    const sortedAbsentMembers = sortedMembers.filter(member => !member.checked);
 
     return (
         <S.mainContainer>
@@ -146,8 +146,8 @@ const Main = () => {
                             <S.td>{member.stdId}</S.td>
                             <S.td>{member.gender === 'MALE' ? '남' : '여'}</S.td>
                             <S.td>{member.name}</S.td>
-                            <S.td style={{ color: member.isChecked ? 'green' : 'red' }}>
-                                {member.isChecked ? '출석' : '미출석'}
+                            <S.td style={{ color: member.checked ? 'green' : 'red' }}>
+                                {member.checked ? '출석' : '미출석'}
                             </S.td>
                             <S.td>{member.phoneNum}</S.td>
                             <S.td>{member.room}호</S.td>

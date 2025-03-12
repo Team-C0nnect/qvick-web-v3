@@ -34,7 +34,7 @@ const CkMember: React.FC = () => {
         }
 
         const checkedMembers = data.filter(member =>
-            member.isChecked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
+            member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
         );
 
         const sortedCheckedMembers = checkedMembers.sort((a, b) => {
@@ -78,7 +78,7 @@ const CkMember: React.FC = () => {
         return <S.memberContainer>데이터가 없습니다.</S.memberContainer>;
     }
 
-    const checkedMembers = members.filter(member => member.isChecked);
+    const checkedMembers = members.filter(member => member.checked);
 
     if (checkedMembers.length === 0) {
         return <S.memberContainer>출석한 학생이 없습니다.</S.memberContainer>;
