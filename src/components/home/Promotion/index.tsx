@@ -77,7 +77,7 @@ const Promotion = () => {
                 <S.AnimatedText className="animated-text">
                     {/* 텍스트는 GSAP 애니메이션을 통해 추가될 예정 */}
                 </S.AnimatedText>
-                <S.LoginButton onClick={handleLoginClick}>Qvick 이용하기</S.LoginButton>
+                <S.LoginText onClick={handleLoginClick}>Qvick 이용하기</S.LoginText>
             </S.TextContainer>
         </S.VideoWrapper>
     );
