@@ -4,6 +4,7 @@ export interface memberType {
     stdId : string,
     room : string,
     phoneNum : string,
+    userRole: string,
     gender : string,
     checked : boolean,
     checkedDate : string,
