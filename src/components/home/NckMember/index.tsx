@@ -7,6 +7,7 @@ import PeopleImg from "src/assets/img/people.svg";
 import HumanImg from "src/assets/img/human.svg";
 import excelImg from "src/assets/img/excel.svg";
 import * as XLSX from 'xlsx';
+import {noMembersMessage} from "src/components/home/NckMember/style";
 
 const NckMember = () => {
     const { data, isLoading, isError } = useGetCheckedMembersFalse();
@@ -95,10 +96,6 @@ const NckMember = () => {
         }
     });
 
-    if (sortedAbsentMembers.length === 0) {
-        return <S.memberContainer>미출석한 멤버가 없습니다.</S.memberContainer>;
-    }
-
     return (
         <S.memberContainer>
             <S.infoContainer>
@@ -129,13 +126,13 @@ const NckMember = () => {
                 <S.NckContainer>
                     <img src={HumanImg} alt="사람 이미지"/>
                     <span>
-                        미출석 인원: <span style={{color: 'red'}}>{sortedAbsentMembers.length}명</span>
-                    </span>
+                    미출석 인원: <span style={{color: 'red'}}>{sortedAbsentMembers.length}명</span>
+                </span>
                 </S.NckContainer>
                 <div style={{display: 'flex', alignItems: 'center', marginLeft: 'auto'}}>
                     <S.sortContainer>
-                        <span onClick={() => handleSortChange('학번')}
-                              style={{cursor: 'pointer', marginRight: '10px'}}>학번</span>
+                    <span onClick={() => handleSortChange('학번')}
+                          style={{cursor: 'pointer', marginRight: '10px'}}>학번</span>
                         <span onClick={() => handleSortChange('이름')}
                               style={{cursor: 'pointer', marginRight: '10px'}}>이름</span>
                         <span onClick={() => handleSortChange('호실')} style={{cursor: 'pointer'}}>호실</span>
@@ -170,6 +167,10 @@ const NckMember = () => {
                     </tbody>
                 </S.table>
             </S.tableWrapper>
+
+            {sortedAbsentMembers.length === 0 && (
+                <S.noMembersMessage>미출석한 학생이 없습니다.</S.noMembersMessage>
+            )}
         </S.memberContainer>
     );
 };
