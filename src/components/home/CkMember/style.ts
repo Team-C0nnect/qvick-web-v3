@@ -196,3 +196,7 @@ export const sortContainer = styled.div`
         }
     }
 `;
+
+export const noMembersMessage = styled.span`
+    font-size: 20px;
+`;
