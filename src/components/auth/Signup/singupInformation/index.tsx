@@ -69,7 +69,11 @@ const SignUpInformation = ({
                     <S.Button onClick={submitSignupData}>회원가입</S.Button>
                     <S.FooterText>
                         <S.NoMemberText>가입한 계정이 있으신가요?</S.NoMemberText>
-                        <S.SignUpLink onClick={() => navigate("/login")}>로그인으로 돌아가기</S.SignUpLink>
+                        <S.SignUpLink onClick={() => {
+                            navigate("/sign");
+                            window.location.reload();
+                        }}>로그인으로 돌아가기</S.SignUpLink>
+
                     </S.FooterText>
                 </S.InformationWrap>
             </S.SignUpWrap>

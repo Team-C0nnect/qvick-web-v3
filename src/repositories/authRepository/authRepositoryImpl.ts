@@ -16,13 +16,13 @@ class AuthRepositoryImpl implements AuthRepository {
             return data;
         } catch (error) {
             console.error(error);
-            throw error; // 에러 핸들링을 위해 원본 에러를 전달
+            throw error;
         }
     }
 
     public signUp = async (signUpData: SignUpParams): Promise<void> => {
         try {
-            const { data } = await axiosInstance.post('/sign-up/teacher', signUpData);
+            const { data } = await axiosInstance.post('auth/sign-up/teacher', signUpData);
             return data;
         } catch (error) {
             console.error(error);
