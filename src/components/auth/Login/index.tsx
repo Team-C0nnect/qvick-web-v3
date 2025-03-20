@@ -44,7 +44,8 @@ const LoginComponent = ({ setIsLogin }: Props) => {
                     <S.Button onClick={auth.handleLogin}>로그인</S.Button>
                     <S.FooterText>
                         <S.NoMemberText>가입한 계정이 없으신가요?</S.NoMemberText>
-                        <S.SignUpLink onClick={() => setIsLogin(false)}>회원가입</S.SignUpLink>
+                        <S.SignUpLink>회원가입</S.SignUpLink>
+                        {/*<S.SignUpLink onClick={() => setIsLogin(false)}>회원가입</S.SignUpLink>*/}
                     </S.FooterText>
                 </S.InformationWrap>
             </S.SignUpWrap>
