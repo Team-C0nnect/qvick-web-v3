@@ -7,7 +7,7 @@ import { qvickQueryKey } from "src/queries/queriesKey";
 export const useGetMembers = () => {
     return useQuery<memberType[], AxiosError>(
         [qvickQueryKey.member.getAll],
-        async () => await memberRepositoryImpl.getAllMembers(),
+        async () => await memberRepositoryImpl.getMembers(),
         {
             staleTime: 30 * 1000,
             cacheTime: 60 * 1000,
