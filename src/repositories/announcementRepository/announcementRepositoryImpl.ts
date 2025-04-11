@@ -2,6 +2,8 @@ import QvickAxios from "src/libs/axios/customAxios";
 import { AnnouncementTypes } from "src/types/Announcement/announcement.types";
 import { AnnouncementRepository } from "src/repositories/announcementRepository/announcementRepository";
 
+
+
 class AnnouncementRepositoryImpl implements AnnouncementRepository {
     public async getAnnouncement(): Promise<AnnouncementTypes[]> {
         const { data } = await QvickAxios.get('/notice/list');

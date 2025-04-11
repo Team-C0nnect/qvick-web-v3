@@ -6,7 +6,8 @@ import CalendarImg from "src/assets/img/Calendar.svg";
 import PeopleImg from "src/assets/img/people.svg";
 import HumanImg from "src/assets/img/human.svg";
 import excelImg from "src/assets/img/excel.svg";
-import * as XLSX from 'xlsx';
+import { exportToExcel } from "src/hook/home/exportExcel";
+
 
 const Main = () => {
     const { data = [], isLoading, isError } = useGetAllMembers();
@@ -18,37 +19,7 @@ const Main = () => {
         const timer = setInterval(() => setCurrentTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
-
-    const exportToExcel = () => {
-        const sortedData = [...data].sort((a, b) => {
-            switch (sortCriteria) {
-                case '학번':
-                    return a.stdId.localeCompare(b.stdId);
-                case '이름':
-                    return a.name.localeCompare(b.name);
-                case '호실':
-                    return a.room.localeCompare(b.room);
-                case '출석 여부':
-                    return a.checked === b.checked ? 0 : a.checked ? -1 : 1;
-                default:
-                    return 0;
-            }
-        });
-
-        const worksheet = XLSX.utils.json_to_sheet(sortedData.map(member => ({
-            "학번": member.stdId,
-            "성별": member.gender === 'MALE' ? '남' : '여',
-            "이름": member.name,
-            "출석 여부": member.checked ? '출석' : '미출석',
-            "전화번호": member.phoneNum,
-            "호실": member.room,
-        })));
-
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, '전체 명단');
-
-        XLSX.writeFile(workbook, '전체_명단.xlsx');
-    };
+    
 
     if (isLoading) {
         return <S.mainContainer>로딩 중...</S.mainContainer>;
@@ -94,7 +65,7 @@ const Main = () => {
                     />
                 </S.datePickerContainer>
                 <div style={{display: 'flex', alignItems: 'center', marginLeft: 'auto'}}>
-                    <S.exportButton onClick={exportToExcel}>
+                    <S.exportButton onClick={()=>exportToExcel(data)}>
                         <img src={excelImg} alt="엑셀 출력"/>
                         엑셀로 출력
                     </S.exportButton>
