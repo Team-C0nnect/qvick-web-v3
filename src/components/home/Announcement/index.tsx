@@ -12,6 +12,7 @@ const Announcement = () => {
     const { mutate: deleteAnnouncement } = useDeleteAnnouncement();
     const { mutate: postAnnouncement } = usePostAnnouncement();
 
+
     const [selectedAnnouncement, setSelectedAnnouncement] = useState<number | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [title, setTitle] = useState("");
