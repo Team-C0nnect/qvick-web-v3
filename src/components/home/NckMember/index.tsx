@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "src/components/home/NckMember/style";
-import { useGetCheckedMembersFalse } from "src/queries/member/member.queries";
+import { useGetMembers } from "src/queries/member/member.queries";
 import ClockImg from "src/assets/img/clock.svg";
 import CalendarImg from "src/assets/img/Calendar.svg";
 import PeopleImg from "src/assets/img/people.svg";
@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 import {noMembersMessage} from "src/components/home/NckMember/style";
 
 const NckMember = () => {
-    const { data, isLoading, isError } = useGetCheckedMembersFalse();
+    const { data, isLoading, isError } = useGetMembers();
     const [currentTime, setCurrentTime] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState('');
     const [sortCriteria, setSortCriteria] = useState('학번');

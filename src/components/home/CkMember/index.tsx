@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "src/components/home/CkMember/style";
-import { useGetCheckedMembersTrue } from "src/queries/member/member.queries";
+import { useGetMembers } from "src/queries/member/member.queries";
 import PeopleImg from "src/assets/img/people.svg";
 import HumanImg from "src/assets/img/human.svg";
 import ClockImg from "src/assets/img/clock.svg";
@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 import {noMembersMessage} from "src/components/home/CkMember/style";
 
 const CkMember: React.FC = () => {
-    const { data, isLoading, isError } = useGetCheckedMembersTrue();
+    const { data, isLoading, isError } = useGetMembers();
     const [currentTime, setCurrentTime] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [sortCriteria, setSortCriteria] = useState<string>('학번');

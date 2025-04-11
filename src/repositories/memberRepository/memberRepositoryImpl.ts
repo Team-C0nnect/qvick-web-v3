@@ -7,12 +7,6 @@ class MemberRepositoryImpl implements memberRepository {
         const { data } = await QvickAxios.get("/user/list", { params: { page, size } });
         return data.data.filter((member: memberType) => member.userRole === "USER");
     }
-
-    public async getCheckedMembers(checked: boolean, page: number = 1, size: number = 1000): Promise<memberType[]> {
-        const { data } = await QvickAxios.get("/check", { params: { checked, page, size } });
-        return data.data.filter((member: memberType) => member.userRole === "USER");
-    }
-
 }
 
 export default new MemberRepositoryImpl();
