@@ -6,7 +6,7 @@ export interface LoginResponse extends Response {
     data: {
         accessToken: string;
         refreshToken: string;
-        useRole: string;
+        userRole: "TEACHER" | "STUDENT" | string;
     };
 }
 

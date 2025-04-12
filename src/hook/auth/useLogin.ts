@@ -58,16 +58,22 @@ export const useLogin = () => {
         try {
             loginMutation.mutate(loginData, {
                 onSuccess: (data) => {
+                    const role = data.data.userRole;
+                    if (role !== "TEACHER") {
+                        showToast("선생님 계정만 로그인할 수 있습니다", "선생님만 접근 가능합니다.");
+                        setLoading(false);
+                        return;
+                    }
                     setTokenValid(true);
                     token.setToken(ACCESS_TOKEN_KEY, data.data.accessToken);
                     token.setToken(REFRESH_TOKEN_KEY, data.data.refreshToken);
-                    showToast("로그인 성공", "SUCCESS");
+                    showToast("로그인 성공", "로그인 성공");
                     navigate("/main");
                 },
                 onError: (error: unknown) => {
                     const axiosError = error as AxiosError;
                     const status = axiosError.response?.status;
-                    showToast(errorHandler.loginError(status || 500), "ERROR");
+                    showToast(errorHandler.loginError(status || 500), "서버에러가 발생했습니다.");
                 },
             });
         } catch (error) {
