@@ -73,7 +73,7 @@ export const useLogin = () => {
                 onError: (error: unknown) => {
                     const axiosError = error as AxiosError;
                     const status = axiosError.response?.status;
-                    showToast(errorHandler.loginError(status || 500), "서버에러가 발생했습니다.");
+                    showToast(errorHandler.loginError(status || 500), "선생님만 접근 가능합니다.");
                 },
             });
         } catch (error) {
