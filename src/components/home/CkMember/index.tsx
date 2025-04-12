@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import * as S from "src/components/home/CkMember/style";
-import { useGetCheckedMembersTrue } from "src/queries/member/member.queries";
+import { useMembers } from "src/queries/member/member.queries";
 import PeopleImg from "src/assets/img/people.svg";
 import HumanImg from "src/assets/img/human.svg";
 import ClockImg from "src/assets/img/clock.svg";
 import CalendarImg from "src/assets/img/Calendar.svg";
 import excelImg from "src/assets/img/excel.svg";
 import * as XLSX from 'xlsx';
-import {noMembersMessage} from "src/components/home/CkMember/style";
 
 const CkMember: React.FC = () => {
-    const { data, isLoading, isError } = useGetCheckedMembersTrue();
+    const { members: checkedMembers, stats, isLoading, error } = useMembers(true);
     const [currentTime, setCurrentTime] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [sortCriteria, setSortCriteria] = useState<string>('학번');
@@ -29,16 +28,16 @@ const CkMember: React.FC = () => {
     };
 
     const exportToExcel = () => {
-        if (!data || !Array.isArray(data)) {
+        if (!checkedMembers || !Array.isArray(checkedMembers)) {
             console.error("데이터가 없습니다.");
             return;
         }
 
-        const checkedMembers = data.filter(member =>
-            member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
+        const filteredMembers = checkedMembers.filter(member =>
+            !selectedDate || member.checkedDate.startsWith(selectedDate)
         );
 
-        const sortedCheckedMembers = checkedMembers.sort((a, b) => {
+        const sortedMembers = filteredMembers.sort((a, b) => {
             switch (sortCriteria) {
                 case '학번':
                     return a.stdId.localeCompare(b.stdId);
@@ -51,7 +50,7 @@ const CkMember: React.FC = () => {
             }
         });
 
-        const worksheet = XLSX.utils.json_to_sheet(sortedCheckedMembers.map(member => ({
+        const worksheet = XLSX.utils.json_to_sheet(sortedMembers.map(member => ({
             "호실": member.room,
             "학번": member.stdId,
             "이름": member.name,
@@ -69,13 +68,26 @@ const CkMember: React.FC = () => {
         return <S.memberContainer>로딩중...</S.memberContainer>;
     }
 
-    if (isError) {
+    if (error) {
         return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
     }
 
-    const members = data || [];
+    const dateFilteredMembers = selectedDate 
+        ? checkedMembers.filter(member => member.checkedDate.startsWith(selectedDate))
+        : checkedMembers;
 
-    const checkedMembers = members.filter(member => member.checked);
+    const sortedMembers = [...dateFilteredMembers].sort((a, b) => {
+        switch (sortCriteria) {
+            case '학번':
+                return a.stdId.localeCompare(b.stdId);
+            case '이름':
+                return a.name.localeCompare(b.name);
+            case '호실':
+                return a.room.localeCompare(b.room);
+            default:
+                return 0;
+        }
+    });
 
     return (
         <S.memberContainer>
@@ -102,12 +114,12 @@ const CkMember: React.FC = () => {
             <S.memberWrap>
                 <S.peopleContainer>
                     <img src={PeopleImg} alt="사람 이미지"/>
-                    <span>전체 인원: {members.length}명</span>
+                    <span>전체 인원: {stats.totalCount}명</span>
                 </S.peopleContainer>
                 <S.ckContainer>
                     <span>
                         <img src={HumanImg} alt="사람 이미지"/>
-                        출석 인원: <span style={{color: 'green'}}>{checkedMembers.length}명</span>
+                        출석 인원: <span style={{color: 'green'}}>{stats.checkedCount}명</span>
                     </span>
                 </S.ckContainer>
                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
@@ -119,7 +131,7 @@ const CkMember: React.FC = () => {
                 </div>
             </S.memberWrap>
 
-            {members.length > 0 && (
+            {stats.totalCount > 0 && (
                 <S.tableWrapper>
                     <S.table>
                         <thead>
@@ -133,7 +145,7 @@ const CkMember: React.FC = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {checkedMembers.map((member) => (
+                        {sortedMembers.map((member) => (
                             <S.tr key={member.stdId}>
                                 <S.td>{member.stdId}</S.td>
                                 <S.td>{member.gender === 'MALE' ? '남' : '여'}</S.td>
@@ -147,7 +159,7 @@ const CkMember: React.FC = () => {
                         ))}
                         </tbody>
                     </S.table>
-                    {checkedMembers.length === 0 && (
+                    {sortedMembers.length === 0 && (
                         <S.noMembersMessage>출석한 학생이 없습니다.</S.noMembersMessage>
                     )}
                 </S.tableWrapper>

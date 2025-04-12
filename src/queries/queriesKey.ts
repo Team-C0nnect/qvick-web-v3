@@ -3,9 +3,7 @@ export const qvickQueryKey={
         getProfile:"/user",
     },
     member: {
-        getAll: 'getAllMembers',
-        getCheckedTrue: 'getCheckedMembersTrue',
-        getCheckedFalse: 'getCheckedMembersFalse',
+        getAll: 'getMembers',
     },
     announcement: {
         getAnnouncement: 'getAnnouncement',

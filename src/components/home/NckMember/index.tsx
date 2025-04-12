@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import * as S from "src/components/home/NckMember/style";
-import { useGetCheckedMembersFalse } from "src/queries/member/member.queries";
+import { useMembers } from "src/queries/member/member.queries";
 import ClockImg from "src/assets/img/clock.svg";
 import CalendarImg from "src/assets/img/Calendar.svg";
 import PeopleImg from "src/assets/img/people.svg";
 import HumanImg from "src/assets/img/human.svg";
 import excelImg from "src/assets/img/excel.svg";
 import * as XLSX from 'xlsx';
-import {noMembersMessage} from "src/components/home/NckMember/style";
 
 const NckMember = () => {
-    const { data, isLoading, isError } = useGetCheckedMembersFalse();
+    const { members: absentMembers, stats, isLoading, error } = useMembers(false);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState('');
     const [sortCriteria, setSortCriteria] = useState('학번');
@@ -29,16 +28,16 @@ const NckMember = () => {
     };
 
     const exportToExcel = () => {
-        if (!data || !Array.isArray(data)) {
+        if (!absentMembers || !Array.isArray(absentMembers)) {
             console.error("데이터가 없습니다.");
             return;
         }
 
-        const absentMembers = data.filter(member =>
-            !member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
+        const filteredMembers = absentMembers.filter(member =>
+            !selectedDate || member.checkedDate.startsWith(selectedDate)
         );
 
-        const sortedAbsentMembers = absentMembers.sort((a, b) => {
+        const sortedMembers = filteredMembers.sort((a, b) => {
             switch (sortCriteria) {
                 case '학번':
                     return a.stdId.localeCompare(b.stdId);
@@ -51,7 +50,7 @@ const NckMember = () => {
             }
         });
 
-        const worksheet = XLSX.utils.json_to_sheet(sortedAbsentMembers.map(member => ({
+        const worksheet = XLSX.utils.json_to_sheet(sortedMembers.map(member => ({
             "호실": member.room,
             "학번": member.stdId,
             "이름": member.name,
@@ -69,21 +68,15 @@ const NckMember = () => {
         return <S.memberContainer>로딩중...</S.memberContainer>;
     }
 
-    if (isError) {
+    if (error) {
         return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
     }
 
-    const members = data;
+    const dateFilteredMembers = selectedDate 
+        ? absentMembers.filter(member => member.checkedDate.startsWith(selectedDate))
+        : absentMembers;
 
-    if (!members || !Array.isArray(members)) {
-        return <S.memberContainer>데이터가 없습니다.</S.memberContainer>;
-    }
-
-    const absentMembers = members.filter(member =>
-        !member.checked && (!selectedDate || member.checkedDate.startsWith(selectedDate))
-    );
-
-    const sortedAbsentMembers = [...absentMembers].sort((a, b) => {
+    const sortedAbsentMembers = [...dateFilteredMembers].sort((a, b) => {
         switch (sortCriteria) {
             case '학번':
                 return a.stdId.localeCompare(b.stdId);
@@ -121,12 +114,12 @@ const NckMember = () => {
             <S.memberWrap>
                 <S.peopleContainer>
                     <img src={PeopleImg} alt="사람 이미지"/>
-                    <span>전체 인원: {members.length}명</span>
+                    <span>전체 인원: {stats.totalCount}명</span>
                 </S.peopleContainer>
                 <S.NckContainer>
                     <img src={HumanImg} alt="사람 이미지"/>
                     <span>
-                    미출석 인원: <span style={{color: 'red'}}>{sortedAbsentMembers.length}명</span>
+                    미출석 인원: <span style={{color: 'red'}}>{stats.uncheckedCount}명</span>
                 </span>
                 </S.NckContainer>
                 <div style={{display: 'flex', alignItems: 'center', marginLeft: 'auto'}}>
