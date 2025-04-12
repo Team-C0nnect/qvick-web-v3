@@ -6,6 +6,7 @@ interface Member {
   stdId: string;   // 학번
   name: string;    // 이름
   checked?: boolean; // 출석 여부
+  checkedDate: string;
 }
 
 // 페이지 그룹 인터페이스
@@ -236,7 +237,7 @@ function addRoomData(
     const member = members[i];
     const stdId = member?.stdId || '';
     const name = member?.name || '';
-    const attendance = member?.checked === true ? '출석' : member ? '미출석' : '';
+    const attendance = member?.checked === true ? member?.checkedDate.substring(11,16) : member ? '미출석' : '';
     
     aoa.push([
       i === 0 ? room : '', // 첫 번째 행에만 방 번호 표시
