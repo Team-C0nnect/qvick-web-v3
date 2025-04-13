@@ -6,6 +6,7 @@ import { ACCESS_TOKEN_KEY, REQUEST_TOKEN_KEY } from "src/constants/token/token.c
 
 const API_BASE_URL = process.env.REACT_APP_QVICK_SERVER;
 
+
 const axiosRequestConfig: AxiosRequestConfig = {
     baseURL: API_BASE_URL,
     headers: {

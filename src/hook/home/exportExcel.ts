@@ -78,13 +78,22 @@ export const exportToExcel = (data: Member[]) => {
  */
 function generateRoomOrder(): string[] {
   const roomOrder: string[] = [];
+
+  // 2층은 따로 먼저 추가 (1~18호)
+  for (let i = 1; i <= 18; i++) {
+    roomOrder.push(`2${i.toString().padStart(2, '0')}`);
+  }
+
+  // 3, 4, 5층만 추가하도록 수정 (2층은 중복 제거)
   [3, 4, 5].forEach(floor => {
     for (let i = 1; i <= 17; i++) {
       roomOrder.push(`${floor}${i.toString().padStart(2, '0')}`);
     }
   });
+
   return roomOrder;
 }
+
 
 /**
  * 구성원을 방 번호별로 정렬하고 그룹화하는 함수
@@ -118,6 +127,8 @@ function groupMembersByRoom(data: Member[], roomOrder: string[]): Record<string,
  */
 function definePageGroups(roomOrder: string[]): PageGroup[] {
   return [
+    { name: '201-209', rooms: roomOrder.filter(r => r >= '201' && r <= '209') },
+    { name: '210-218', rooms: roomOrder.filter(r => r >= '210' && r <= '218') },
     { name: '301-309', rooms: roomOrder.filter(r => r >= '301' && r <= '309') },
     { name: '310-317', rooms: roomOrder.filter(r => r >= '310' && r <= '317') },
     { name: '401-409', rooms: roomOrder.filter(r => r >= '401' && r <= '409') },
