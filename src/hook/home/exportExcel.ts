@@ -149,8 +149,12 @@ function definePageGroups(roomOrder: string[]): PageGroup[] {
       const endRoom = FLOOR_CONFIG.formatRoomNumber(floorGroup.floor, group.end);
       const groupName = `${startRoom}-${endRoom}`;
       
+      const startRoomNum = Number(startRoom);
+      const endRoomNum = Number(endRoom);
+      
       const rooms = roomOrder.filter(room => {
-        return room >= startRoom && room <= endRoom;
+        const roomNum = Number(room);
+        return roomNum >= startRoomNum && roomNum <= endRoomNum;
       });
       
       pageGroups.push({ name: groupName, rooms });
