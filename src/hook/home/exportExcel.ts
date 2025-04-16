@@ -142,6 +142,7 @@ function definePageGroups(roomOrder: string[]): PageGroup[] {
  * 워크시트 생성 함수
  * 해당 페이지 그룹에 대한 워크시트 생성 및 스타일 적용
  */
+
 function createWorksheet(
   group: PageGroup, 
   roomMap: Record<string, Member[]>,
