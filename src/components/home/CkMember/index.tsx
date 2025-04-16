@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import * as S from "src/components/home/CkMember/style";
 import { useMembers } from "src/queries/member/member.queries";
 import PeopleImg from "src/assets/img/people.svg";
@@ -8,36 +8,26 @@ import CalendarImg from "src/assets/img/Calendar.svg";
 import excelImg from "src/assets/img/excel.svg";
 import * as XLSX from 'xlsx';
 
-const CkMember: React.FC = () => {
+const CkMember = () => {
     const { members: checkedMembers, stats, isLoading, error } = useMembers(true);
-    const [currentTime, setCurrentTime] = useState<Date>(new Date());
-    const [selectedDate, setSelectedDate] = useState<string>('');
-    const [sortCriteria, setSortCriteria] = useState<string>('학번');
+    const [currentTime, setCurrentTime] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState('');
+    type SortCriteria = '학번' | '이름' | '호실';
+    const [sortCriteria, setSortCriteria] = useState<SortCriteria>('학번');
 
     useEffect(() => {
         const timer = setInterval(() => setCurrentTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedDate(e.target.value);
-    };
+    const sortedMembers = useMemo(() => {
+        if (!checkedMembers) return [];
 
-    const handleSortChange = (criteria: string) => {
-        setSortCriteria(criteria);
-    };
+        const filtered = selectedDate
+            ? checkedMembers.filter(member => member.checkedDate.slice(0, 10) === selectedDate)
+            : checkedMembers;
 
-    const exportToExcel = () => {
-        if (!checkedMembers || !Array.isArray(checkedMembers)) {
-            console.error("데이터가 없습니다.");
-            return;
-        }
-
-        const filteredMembers = checkedMembers.filter(member =>
-            !selectedDate || member.checkedDate.startsWith(selectedDate)
-        );
-
-        const sortedMembers = filteredMembers.sort((a, b) => {
+        return [...filtered].sort((a, b) => {
             switch (sortCriteria) {
                 case '학번':
                     return a.stdId.localeCompare(b.stdId);
@@ -49,45 +39,29 @@ const CkMember: React.FC = () => {
                     return 0;
             }
         });
+    }, [checkedMembers, selectedDate, sortCriteria]);
+
+    const exportToExcel = () => {
+        if (!sortedMembers.length) {
+            alert("출력할 출석자 데이터가 없습니다.");
+            return;
+        }
 
         const worksheet = XLSX.utils.json_to_sheet(sortedMembers.map(member => ({
             "호실": member.room,
             "학번": member.stdId,
             "이름": member.name,
-            "출석여부": '출석',
+            "출석여부": "출석",
             "출석시간": member.checkedDate,
         })));
 
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, '출석자 명단');
-
-        XLSX.writeFile(workbook, '출석자_명단.xlsx');
+        XLSX.utils.book_append_sheet(workbook, worksheet, "출석자 명단");
+        XLSX.writeFile(workbook, "출석자_명단.xlsx");
     };
 
-    if (isLoading) {
-        return <S.memberContainer>로딩중...</S.memberContainer>;
-    }
-
-    if (error) {
-        return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
-    }
-
-    const dateFilteredMembers = selectedDate 
-        ? checkedMembers.filter(member => member.checkedDate.startsWith(selectedDate))
-        : checkedMembers;
-
-    const sortedMembers = [...dateFilteredMembers].sort((a, b) => {
-        switch (sortCriteria) {
-            case '학번':
-                return a.stdId.localeCompare(b.stdId);
-            case '이름':
-                return a.name.localeCompare(b.name);
-            case '호실':
-                return a.room.localeCompare(b.room);
-            default:
-                return 0;
-        }
-    });
+    if (isLoading) return <S.memberContainer>로딩중...</S.memberContainer>;
+    if (error) return <S.memberContainer>에러가 발생했습니다.</S.memberContainer>;
 
     return (
         <S.memberContainer>
@@ -101,34 +75,46 @@ const CkMember: React.FC = () => {
                     <input
                         type="date"
                         value={selectedDate}
-                        onChange={handleDateChange}
+                        onChange={(e) => setSelectedDate(e.target.value)}
                     />
                 </S.datePickerContainer>
-                <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+                <S.flexRight>
                     <S.exportButton onClick={exportToExcel}>
                         <img src={excelImg} alt="엑셀 출력" />
                         엑셀로 출력
                     </S.exportButton>
-                </div>
+                </S.flexRight>
             </S.infoContainer>
+
             <S.memberWrap>
                 <S.peopleContainer>
-                    <img src={PeopleImg} alt="사람 이미지"/>
+                    <img src={PeopleImg} alt="사람 이미지" />
                     <span>전체 인원: {stats.totalCount}명</span>
                 </S.peopleContainer>
                 <S.ckContainer>
                     <span>
-                        <img src={HumanImg} alt="사람 이미지"/>
-                        출석 인원: <span style={{color: 'green'}}>{stats.checkedCount}명</span>
+                        <img src={HumanImg} alt="사람 이미지" />
+                        출석 인원: <span style={{ color: "green" }}>{stats.checkedCount}명</span>
                     </span>
                 </S.ckContainer>
-                <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+                <S.flexRight>
                     <S.sortContainer>
-                        <span onClick={() => handleSortChange('학번')} style={{ cursor: 'pointer', marginRight: '10px' }}>학번</span>
-                        <span onClick={() => handleSortChange('이름')} style={{ cursor: 'pointer', marginRight: '10px' }}>이름</span>
-                        <span onClick={() => handleSortChange('호실')} style={{ cursor: 'pointer' }}>호실</span>
+                        {["학번", "이름", "호실"].map((criteria) => (
+                            <span
+                                key={criteria}
+                                onClick={() => setSortCriteria(criteria as typeof sortCriteria)}
+                                style={{
+                                    cursor: "pointer",
+                                    fontWeight: sortCriteria === criteria ? "bold" : "normal",
+                                    textDecoration: sortCriteria === criteria ? "underline" : "none",
+                                    marginRight: criteria !== "호실" ? "10px" : 0,
+                                }}
+                            >
+                                {criteria}
+                            </span>
+                        ))}
                     </S.sortContainer>
-                </div>
+                </S.flexRight>
             </S.memberWrap>
 
             {stats.totalCount > 0 && (
@@ -150,9 +136,7 @@ const CkMember: React.FC = () => {
                                 <S.td>{member.stdId}</S.td>
                                 <S.td>{member.gender === 'MALE' ? '남' : '여'}</S.td>
                                 <S.td>{member.name}</S.td>
-                                <S.td style={{ color: 'green' }}>
-                                    출석
-                                </S.td>
+                                <S.td style={{ color: "green" }}>출석</S.td>
                                 <S.td>{member.phoneNum}</S.td>
                                 <S.td>{member.room}호</S.td>
                             </S.tr>
