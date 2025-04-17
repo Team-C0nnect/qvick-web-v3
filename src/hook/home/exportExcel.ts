@@ -21,6 +21,28 @@ interface Border {
   color: { rgb: string };
 }
 
+const FLOOR_CONFIG = {
+  floors: [
+    { floor: 2, start: 1, end: 18 },  // 2층은 01~18호
+    { floor: 3, start: 1, end: 17 },  // 3층은 01~17호
+    { floor: 4, start: 1, end: 17 },  // 4층은 01~17호
+    { floor: 5, start: 1, end: 17 },  // 5층은 01~17호
+  ],
+  
+  // 시작호실-끝 호실
+  pageGroups: [
+    { floor: 2, groups: [{ start: 1, end: 6 }, { start: 7, end: 12 },{ start: 13, end: 18 }]}, //여자기숙사 201-206, 207-212, 213-218
+    { floor: 3, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] },
+    { floor: 4, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] },
+    { floor: 5, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] }
+  ],
+  
+  // 방 번호 형식 생성 함수
+  formatRoomNumber: (floor: number, room: number): string => {
+    return `${floor}${room.toString().padStart(2, '0')}`;
+  }
+};
+
 export const exportToExcel = (data: Member[]) => {
   // 설정 상수
   const MAX_ROWS_PER_PAGE = 44;                          // 페이지당 최대 행 수
@@ -79,21 +101,14 @@ export const exportToExcel = (data: Member[]) => {
 function generateRoomOrder(): string[] {
   const roomOrder: string[] = [];
 
-  // 2층은 따로 먼저 추가 (1~18호)
-  for (let i = 1; i <= 18; i++) {
-    roomOrder.push(`2${i.toString().padStart(2, '0')}`);
-  }
-
-  // 3, 4, 5층만 추가하도록 수정 (2층은 중복 제거)
-  [3, 4, 5].forEach(floor => {
-    for (let i = 1; i <= 17; i++) {
-      roomOrder.push(`${floor}${i.toString().padStart(2, '0')}`);
+  FLOOR_CONFIG.floors.forEach(floorInfo => {
+    for (let i = floorInfo.start; i <= floorInfo.end; i++) {
+      roomOrder.push(FLOOR_CONFIG.formatRoomNumber(floorInfo.floor, i));
     }
   });
 
   return roomOrder;
 }
-
 
 /**
  * 구성원을 방 번호별로 정렬하고 그룹화하는 함수
@@ -126,16 +141,27 @@ function groupMembersByRoom(data: Member[], roomOrder: string[]): Record<string,
  * @returns 페이지 그룹 목록
  */
 function definePageGroups(roomOrder: string[]): PageGroup[] {
-  return [
-    { name: '201-209', rooms: roomOrder.filter(r => r >= '201' && r <= '209') },
-    { name: '210-218', rooms: roomOrder.filter(r => r >= '210' && r <= '218') },
-    { name: '301-309', rooms: roomOrder.filter(r => r >= '301' && r <= '309') },
-    { name: '310-317', rooms: roomOrder.filter(r => r >= '310' && r <= '317') },
-    { name: '401-409', rooms: roomOrder.filter(r => r >= '401' && r <= '409') },
-    { name: '410-417', rooms: roomOrder.filter(r => r >= '410' && r <= '417') },
-    { name: '501-509', rooms: roomOrder.filter(r => r >= '501' && r <= '509') },
-    { name: '510-517', rooms: roomOrder.filter(r => r >= '510' && r <= '517') }
-  ];
+  const pageGroups: PageGroup[] = [];
+  
+  FLOOR_CONFIG.pageGroups.forEach(floorGroup => {
+    floorGroup.groups.forEach(group => {
+      const startRoom = FLOOR_CONFIG.formatRoomNumber(floorGroup.floor, group.start);
+      const endRoom = FLOOR_CONFIG.formatRoomNumber(floorGroup.floor, group.end);
+      const groupName = `${startRoom}-${endRoom}`;
+      
+      const startRoomNum = Number(startRoom);
+      const endRoomNum = Number(endRoom);
+      
+      const rooms = roomOrder.filter(room => {
+        const roomNum = Number(room);
+        return roomNum >= startRoomNum && roomNum <= endRoomNum;
+      });
+      
+      pageGroups.push({ name: groupName, rooms });
+    });
+  });
+  
+  return pageGroups;
 }
 
 /**
