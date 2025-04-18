@@ -1,4 +1,30 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const flexAlign = css`
+    display: flex;
+    align-items: center;
+`;
+
+const infoBox = css`
+    ${flexAlign};
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 200px;
+
+    img {
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+    }
+
+    span {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+    }
+`;
 
 export const memberContainer = styled.div`
     width: 100vw;
@@ -8,7 +34,6 @@ export const memberContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
 `;
 
 export const tableWrapper = styled.div`
@@ -38,78 +63,46 @@ export const th = styled.th`
 export const td = styled.td`
     border-bottom: 1px solid #ddd;
     padding: 10px;
-    background-color: #FFFFFF;
+    background-color: #fff;
     text-align: center;
-    border-left: none;
-    border-right: none;
     height: 35px;
     line-height: 35px;
 `;
 
-
 export const tr = styled.tr`
     &:nth-child(even) {
-        background-color: #FFFFFF;
+        background-color: #fff;
     }
 `;
 
 export const infoContainer = styled.div`
-    display: flex;
-    align-items: center;
+    ${flexAlign};
     width: 80%;
-    margin-top: 40px;
-    margin-bottom: 30px;
+    margin: 40px 0 30px;
 `;
 
 export const timeContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${infoBox};
     margin-right: 20px;
-
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
-    span {
-        font-weight: 400;
-        font-size: 16px;
-        color: #333;
-    }
 `;
 
 export const datePickerContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${infoBox}
 
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
-    span {
+    input {
+        border: none;
         font-size: 16px;
         color: #333;
+        background: transparent;
+        outline: none;
+        width: 100%;
     }
 `;
 
 export const exportButton = styled.button`
-    width: 120px;
-    display: flex;
-    align-items: center;
+    ${flexAlign};
     justify-content: center;
+    width: 120px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -130,60 +123,22 @@ export const exportButton = styled.button`
 `;
 
 export const memberWrap = styled.div`
-    display: flex;
-    align-items: center;
+    ${flexAlign};
     width: 80%;
     margin-bottom: 30px;
 `;
 
 export const peopleContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${infoBox};
     margin-right: 20px;
-
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
-    span {
-        font-weight: 500;
-        font-size: 16px;
-        color: #333;
-    }
 `;
 
 export const ckContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
-    span {
-        font-weight: 500;
-        font-size: 16px;
-        color: #333;
-    }
+    ${infoBox};
 `;
 
 export const sortContainer = styled.div`
-    display: flex;
-    align-items: center;
+    ${flexAlign};
     cursor: pointer;
 
     span {
@@ -198,5 +153,10 @@ export const sortContainer = styled.div`
 `;
 
 export const noMembersMessage = styled.span`
-    font-size: 20px;
+  font-size: 20px;
+`;
+
+export const flexRight = styled.div`
+  ${flexAlign};
+  margin-left: auto;
 `;
