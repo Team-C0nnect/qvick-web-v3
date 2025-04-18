@@ -45,6 +45,6 @@ export const useMembers = (checked?: boolean) => {
 };
 
 export const useGetMembers = (checked?: boolean) => {
-  const { members, isLoading, error } = useMembers(checked);
-  return { data: members, isLoading, isError: error };
+  const { members, isLoading, error, refetch } = useMembers(checked);
+  return { data: members, isLoading, isError: error, refetch };
 };
