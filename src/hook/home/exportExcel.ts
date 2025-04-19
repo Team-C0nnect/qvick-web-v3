@@ -24,17 +24,17 @@ interface Border {
 const FLOOR_CONFIG = {
   floors: [
     { floor: 2, start: 1, end: 18 },  // 2층은 01~18호
-    { floor: 3, start: 1, end: 17 },  // 3층은 01~17호
-    { floor: 4, start: 1, end: 17 },  // 4층은 01~17호
-    { floor: 5, start: 1, end: 17 },  // 5층은 01~17호
+    { floor: 3, start: 1, end: 15 },  // 3층은 01~17호
+    { floor: 4, start: 1, end: 15 },  // 4층은 01~17호
+    { floor: 5, start: 1, end: 15 },  // 5층은 01~17호
   ],
   
   // 시작호실-끝 호실
   pageGroups: [
     { floor: 2, groups: [{ start: 1, end: 6 }, { start: 7, end: 12 },{ start: 13, end: 18 }]}, //여자기숙사 201-206, 207-212, 213-218
-    { floor: 3, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] },
-    { floor: 4, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] },
-    { floor: 5, groups: [{ start: 1, end: 9 }, { start: 10, end: 17 }] }
+    { floor: 3, groups: [{ start: 1, end: 8 }, { start: 9, end: 15 }] },
+    { floor: 4, groups: [{ start: 1, end: 9 }, { start: 10, end: 15 }] },
+    { floor: 5, groups: [{ start: 1, end: 9 }, { start: 10, end: 15 }] }
   ],
   
   // 방 번호 형식 생성 함수
@@ -48,12 +48,12 @@ export const exportToExcel = (data: Member[]) => {
   const MAX_ROWS_PER_PAGE = 44;                          // 페이지당 최대 행 수
   const FILL_COLOR_GRAY = { fgColor: { rgb: 'D9D9D9' } }; // 회색 배경색
   const BORDER_THIN: Border = { style: 'thin', color: { rgb: '000000' } };  // 얇은 테두리
-  const BORDER_THICK: Border = { style: 'medium', color: { rgb: '000000' } }; // 굵은 테두리
-  const COL_WIDTHS = [8, 15, 17, 17, 27];                // 열 너비 (호실, 학번, 성명, 출석여부, 비고)
+  const BORDER_THICK: Border = { style: 'medium', color: { rgb: '000000' } }; // 중간 두께 테두리
+  const COL_WIDTHS = [8, 15, 15, 15, 27];                // 열 너비 (호실, 학번, 성명, 출석여부, 비고)
   const FONT_SIZES = {
     title: 20,      // 타이틀 글꼴 크기
-    header: 12,     // 헤더 글꼴 크기
-    dataA: 16,      // A열(호실) 글꼴 크기
+    header: 12,     // 헤더 글꼴 크기 
+    dataA: 12,      // A열(호실) 글꼴 크기
     dataOther: 12,  // 나머지 열 글꼴 크기
     noteHeader: 12, // 필기용 헤더 글꼴 크기
     note: 10        // 필기용 빈칸 글꼴 크기
@@ -364,8 +364,7 @@ function applyStylesToWorksheet(
       const top = thickTopRows.includes(r) || r === totalRows ? borderThick : borderThin;
       const left = c === 0 ? borderThick : borderThin;
       const right = c === 4 ? borderThick : borderThin;
-      const bottom = r === aoa.length - 1 ? borderThick : borderThin;
-      
+      const bottom = r === aoa.length - 1 ? undefined : borderThin;
       // 이미 스타일이 있는 셀은 건너뛰기 위한 플래그
       const hasExistingStyle = cellStyles[cellRef] && cellStyles[cellRef].font;
       
@@ -391,8 +390,9 @@ function applyStylesToWorksheet(
       // 날짜와 자치위원 행의 첫 번째 셀 특별 처리
       const isDateCell = r === totalRows;
       const horizontalAlignment = isDateCell && c === 0 ? 'left' : 'center';
-      const verticalAlignment = isDateCell && c === 0 ? 'top' : 'center';
-      
+      // A열은 무조건 top으로 수직 정렬, 다른 열은 기존 로직 유지
+      const verticalAlignment = c === 0 ? 'top' : (isDateCell && c === 0 ? 'top' : 'center');      
+            
       // 셀 스타일 적용
       worksheet[cellRef].s = {
         ...(cellStyles[cellRef] || {}),
