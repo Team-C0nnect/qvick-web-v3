@@ -66,20 +66,16 @@ const Main = () => {
         return attendanceCondition && gradeCondition && genderCondition && searchCondition;
     });
 
-    const sortedMembers = [...filteredMembers].sort((a, b) => {
-        switch (sortCriteria) {
-            case '학번':
-                return a.stdId.localeCompare(b.stdId);
-            case '이름':
-                return a.name.localeCompare(b.name);
-            case '호실':
-                return a.room.localeCompare(b.room);
-            case '출석 여부':
-                return a.checked === b.checked ? 0 : a.checked ? -1 : 1;
-            default:
-                return 0;
-        }
-    });
+    const sortFunctions: Record<string, (a: any, b: any) => number> = {
+        '학번': (a, b) => a.stdId.localeCompare(b.stdId),
+        '이름': (a, b) => a.name.localeCompare(b.name),
+        '호실': (a, b) => a.room.localeCompare(b.room),
+        '출석 여부': (a, b) => a.checked === b.checked ? 0 : a.checked ? -1 : 1,
+    };
+
+    const sortedMembers = [...filteredMembers].sort(
+        sortFunctions[sortCriteria] || (() => 0)
+    );
 
 
     return (
@@ -111,13 +107,13 @@ const Main = () => {
                 </S.peopleContainer>
                 <S.ckContainer>
                     <img src={HumanImg} alt="사람 이미지" />
-                    <span>출석자 수: <span style={{ color: 'green' }}>{checkedMembersCount}명</span></span>
+                    <S.ckCount>출석자 수: <span>{checkedMembersCount}명</span></S.ckCount>
                 </S.ckContainer>
                 <S.NckContainer>
                     <img src={HumanImg} alt="사람 이미지" />
-                    <span>
-                        미출석 인원: <span style={{ color: 'red' }}>{uncheckedMembersCount}명</span>
-                    </span>
+                    <S.NckCount>
+                        미출석 인원: <span>{uncheckedMembersCount}명</span>
+                    </S.NckCount>
                 </S.NckContainer>
                 <S.ReloadButton onClick={() => refetch()}>
                     <img src={reloadImg} alt="새로고침 이미지" />
@@ -187,10 +183,13 @@ const Main = () => {
                             sortedMembers.map((member) => (
                                 <S.tr key={member.stdId}>
                                     <S.td>{member.stdId}</S.td>
-                                    <S.td>{member.gender === 'MALE' ? '남' : '여'}</S.td>
+                                    <S.td>{({ MALE: '남', FEMALE: '여' } as const)[member.gender]}</S.td>
                                     <S.td>{member.name}</S.td>
                                     <S.td style={{ color: member.checked ? 'green' : 'red' }}>
-                                        {member.checked ? '출석' : '미출석'}
+                                        {({
+                                            true: '출석',
+                                            false: '미출석'
+                                        })[member.checked.toString()]}
                                     </S.td>
                                     <S.td>{member.phoneNum}</S.td>
                                     <S.td>{member.room}호</S.td>

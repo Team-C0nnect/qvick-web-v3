@@ -390,9 +390,9 @@ function applyStylesToWorksheet(
       // 날짜와 자치위원 행의 첫 번째 셀 특별 처리
       const isDateCell = r === totalRows;
       const horizontalAlignment = isDateCell && c === 0 ? 'left' : 'center';
-      // A열은 무조건 top으로 수직 정렬, 다른 열은 기존 로직 유지
-      const verticalAlignment = c === 0 ? 'top' : (isDateCell && c === 0 ? 'top' : 'center');      
-            
+      const verticalAlignment = isDateCell && c === 0 ? 'top' : 'center';
+      
+      
       // 셀 스타일 적용
       worksheet[cellRef].s = {
         ...(cellStyles[cellRef] || {}),

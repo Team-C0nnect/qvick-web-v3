@@ -1,4 +1,76 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const flexRowStartEnd = css`
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+`;
+
+const boxStyle = css`
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+`;
+
+const iconStyle = css`
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+`;
+
+const spanBase = css`
+    font-size: 16px;
+    color: #333;
+`;
+
+const buttonBase = css`
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+const inputSelectBase = css`
+    width: 222px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    box-sizing: border-box;
+
+    &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    }
+`;
+
+const boxWithIcon = css`
+    ${boxStyle}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+
+    img {
+        ${iconStyle}
+    }
+`;
 
 export const mainContainer = styled.div`
     width: 100vw;
@@ -20,75 +92,31 @@ export const infoContainer = styled.div`
 `;
 
 export const timeContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${boxWithIcon}
     margin-right: 20px;
 
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
     span {
+        ${spanBase}
         font-weight: 400;
-        font-size: 16px;
-        color: #333;
     }
 `;
 
 export const datePickerContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
+    ${boxWithIcon}
 
     span {
-        font-size: 16px;
-        color: #333;
+        ${spanBase}
     }
 `;
 
 export const filterContainer = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    ${flexRowStartEnd}
     width: 80%;
     margin: 20px 0;
-
 `;
 
 export const filterButton = styled.button`
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-        background-color: #0056b3;
-    }
-
-    &:focus {
-        outline: none;
-    }
+    ${buttonBase}
 `;
 
 export const filterGroup = styled.div`
@@ -97,6 +125,7 @@ export const filterGroup = styled.div`
     align-items: flex-start;
     width: 222px;
     margin-right: 20px;
+
     label {
         font-size: 14px;
         margin-bottom: 8px;
@@ -105,42 +134,15 @@ export const filterGroup = styled.div`
     }
 
     input, select {
-        width: 222px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 14px;
-        color: #333;
-        background-color: #fff;
-        box-sizing: border-box;
-
-        &:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-        }
+        ${inputSelectBase}
     }
 `;
 
 export const exportButton = styled.button`
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    ${buttonBase}
     display: flex;
     align-items: center;
 
-    &:hover {
-        background-color: #0056b3;
-    }
-
-    &:focus {
-        outline: none;
-    }
     select {
         padding: 8px;
         border: 1px solid #ccc;
@@ -156,9 +158,7 @@ export const exportButton = styled.button`
         }
     }
     img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
+        ${iconStyle}
     }
 `;
 
@@ -170,72 +170,50 @@ export const memberWrap = styled.div`
 `;
 
 export const peopleContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${boxWithIcon}
     margin-right: 20px;
 
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
     span {
+        ${spanBase}
         font-weight: 500;
-        font-size: 16px;
-        color: #333;
     }
 `;
 
 export const NckContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${boxWithIcon}
     margin-right: 20px;
-
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
 
     span {
         font-weight: 500;
         font-size: 16px;
-        color: #333;
+    }
+`;
+
+export const NckCount = styled.span`
+    color: #333;
+    span {
+        color: red;
     }
 `;
 
 export const ReloadButton = styled.div`
+    ${boxStyle}
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
     width: 24px;
+
     img {
         width: 24px;
         height: 24px;
     }
-`
+`;
 
 export const searchContainer = styled.div`
+    ${boxStyle}
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
+    justify-content: space-between;
     width: 200px;
     height: 19px;
 
@@ -261,25 +239,19 @@ export const searchContainer = styled.div`
 `;
 
 export const ckContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
+    ${boxWithIcon}
     margin-right: 20px;
 
-    img {
-        margin-right: 10px;
-        width: 24px;
-        height: 24px;
-    }
-
     span {
+        ${spanBase}
         font-weight: 500;
-        font-size: 16px;
-        color: #333;
+    }
+`;
+
+export const ckCount = styled.span`
+    color: #333;
+    span {
+        color: green;
     }
 `;
 

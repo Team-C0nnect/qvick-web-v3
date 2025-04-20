@@ -9,7 +9,7 @@ import cookie from "src/libs/cookies/cookie";
 
 const Header = () => {
     const { data } = useGetProfile();
-    const { getTokenCheck } = useTokenCheck();
+    const hasToken = useTokenCheck();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +50,7 @@ const Header = () => {
                 <S.NavLink to="/announcement">공지사항</S.NavLink>
             </S.navBar>
 
-            {getTokenCheck() && data ? (
+            {hasToken && data ? (
                 <S.nameContainer
                     ref={dropdownRef}
                     onClick={() => setDropdownOpen((prev) => !prev)}
