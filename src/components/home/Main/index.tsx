@@ -165,6 +165,12 @@ const Main = () => {
                             value={searchQuery}
                         />
                     </S.searchContainer>
+                    {(filteredMembers.length !== data.length || searchQuery) &&
+                        <S.filteredCount>
+                            {sortedMembers.length}명 검색됨
+                        </S.filteredCount>
+                    }
+                    
             </S.filterContainer>
             <S.tableWrapper>
                 <S.table>

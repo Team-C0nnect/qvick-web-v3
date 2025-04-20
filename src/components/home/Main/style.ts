@@ -216,6 +216,7 @@ export const searchContainer = styled.div`
     justify-content: space-between;
     width: 200px;
     height: 19px;
+    margin-right: 20px;
 
     input {
         border: none;
@@ -236,6 +237,16 @@ export const searchContainer = styled.div`
         height: 20px;
         cursor: pointer;
     }
+`;
+
+export const filteredCount = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100px;
+    margin-right: 20px;
+    font-size: 14px;
+    color: #333;
+    height: 40.1px;
 `;
 
 export const ckContainer = styled.div`
