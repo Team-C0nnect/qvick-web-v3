@@ -339,16 +339,13 @@ function addNotesSection(
   
   // 현재 날짜 정보 생성
   const today = new Date();
-  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원`;
-  const attendanceStr = `출석 ${attendedCount}명/미출석 ${absentCount}명`;
+  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원\n출석 ${attendedCount}명/미출석 ${absentCount}명`;
   
   // 첫 번째 필기 행에 날짜 정보 추가
   aoa.push([`${dateStr}`, '', '', '', '']);
-  // 두 번째 필기 행에 출석 정보 추가
-  aoa.push([`${attendanceStr}`, '', '', '', '']);
   
   // 나머지 필기용 빈 행 추가
-  for (let i = 2; i < notesNeeded; i++) {
+  for (let i = 1; i < notesNeeded; i++) {
     aoa.push(['', '', '', '', '']);
   }
   
