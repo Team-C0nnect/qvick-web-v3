@@ -220,7 +220,7 @@ function createWorksheet(
   const notesNeeded = Math.max(5, maxRowsPerPage - totalRows);
   
   // 필기용 섹션 추가
-  addNotesSection(aoa, merges, rowIndex, notesNeeded, dayNames);
+  addNotesSection(aoa, merges, rowIndex, notesNeeded, dayNames, roomMap, group.rooms);
   rowIndex += notesNeeded;
   
   // 워크시트 생성
@@ -318,11 +318,28 @@ function addNotesSection(
   merges: XLSX.Range[],
   rowIndex: number,
   notesNeeded: number,
-  dayNames: string[]
+  dayNames: string[],
+  roomMap: Record<string, Member[]>,
+  rooms: string[]
 ): void {
+  // 출석/미출석 인원 계산
+  let attendedCount = 0;
+  let absentCount = 0;
+  
+  rooms.forEach(room => {
+    const members = roomMap[room] || [];
+    members.forEach(member => {
+      if (member.checked === true) {
+        attendedCount++;
+      } else {
+        absentCount++;
+      }
+    });
+  });
+  
   // 현재 날짜 정보 생성
   const today = new Date();
-  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원`;
+  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원                        {${attendedCount}/${absentCount}}`;
   
   // 첫 번째 필기 행에 날짜 정보 추가
   aoa.push([`${dateStr}`, '', '', '', '']);
