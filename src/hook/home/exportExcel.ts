@@ -49,7 +49,7 @@ export const exportToExcel = (data: Member[]) => {
   const FILL_COLOR_GRAY = { fgColor: { rgb: 'D9D9D9' } }; // 회색 배경색
   const BORDER_THIN: Border = { style: 'thin', color: { rgb: '000000' } };  // 얇은 테두리
   const BORDER_THICK: Border = { style: 'medium', color: { rgb: '000000' } }; // 중간 두께 테두리
-  const COL_WIDTHS = [8, 15, 15, 15, 27];                // 열 너비 (호실, 학번, 성명, 출석여부, 비고)
+  const COL_WIDTHS = [8, 15, 15, 15, 40];                // 열 너비 (호실, 학번, 성명, 출석여부, 비고)
   const FONT_SIZES = {
     title: 20,      // 타이틀 글꼴 크기
     header: 12,     // 헤더 글꼴 크기 
