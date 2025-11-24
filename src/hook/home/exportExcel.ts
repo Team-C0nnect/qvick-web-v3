@@ -339,7 +339,7 @@ function addNotesSection(
   
   // 현재 날짜 정보 생성
   const today = new Date();
-  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원\n출석 ${attendedCount}명/미출석 ${absentCount}명`;
+  const dateStr = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일                        자치위원         출석 ${attendedCount}명/미출석 ${absentCount}명`;
   
   // 첫 번째 필기 행에 날짜 정보 추가
   aoa.push([`${dateStr}`, '', '', '', '']);
