@@ -10,8 +10,10 @@ export const useGetMembersData = () => {
     [qvickQueryKey.member.getAll],
     async () => await memberRepositoryImpl.getMembers(),
     {
-      staleTime: 30 * 1000,
+      staleTime: 60* 1000,
       cacheTime: 60 * 1000,
+      refetchInterval: 30 * 1000,
+      refetchOnWindowFocus: true,
     }
   );
 };
